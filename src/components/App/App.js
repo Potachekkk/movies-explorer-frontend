@@ -13,7 +13,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 
 const App = () => {
   return (
-    <>
+    <div className='content'>
       <Header />
       <Routes>
         <Route path='/' element={<Main />} />
@@ -25,7 +25,7 @@ const App = () => {
         <Route path='*' element={<PageNotFound />} />
       </Routes>
       < Footer />
-    </>
+    </div>
   );
 };
 

@@ -4,7 +4,7 @@ import './AboutProject.css';
 const AboutProject = () => {
   return (
    <section className='about-project'>
-    <h2 className='about-project__title about-project__stroke'>О проекте</h2>
+    <h2 className='about-project__title main__title'>О проекте</h2>
     <div className="about-project__container">
       <ul className='about-project__list'>
         <li className='about-project__item'>

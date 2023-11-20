@@ -4,25 +4,17 @@
     box-sizing: border-box;
     padding: 20px 40px 0;
     display: flex;
-    flex-direction: column
+    flex-direction: column;
 }
 
 .about-project__title {
-    font-size: 22px;
-    line-height: 26.63px;
-    font-weight: 400;
-    letter-spacing: -0.04em;
-    margin-top: 60px;
-}
-
-.about-project__stroke {
-    padding-bottom: 23px;
-    border-bottom: 1px solid #DADADA;
+    margin: 60px auto 70px;
 }
 
 .about-project__container {
     box-sizing: border-box;
     width: 100%;
+    padding-bottom: 110px;
 }
 
 .about-project__list {
@@ -39,6 +31,7 @@
 }
 
 .about-project__info {
+    margin: 0;
     font-size: 20px;
     line-height: 24.2px;
     font-weight: 400;
@@ -47,6 +40,7 @@
 }
 
 .about-project__description {
+    margin: 0;
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
@@ -93,6 +87,7 @@
     font-weight: 400;
     line-height: 16.94px;
     text-align: center;
+    margin: 0;
 }
 
 .about-project__duration_caption {
@@ -100,4 +95,5 @@
     font-weight: 500;
     line-height: 17px;
     text-align: center;
+    margin: 0;
 }

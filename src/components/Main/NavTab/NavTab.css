@@ -26,5 +26,9 @@
     background-color: #303030;
     height: 36px;
     width: 96px;
-    transition: 0.2s;
+    transition: 0.3s;
+}
+
+.nav-tab__link:hover {
+    opacity: 0.7;
 }

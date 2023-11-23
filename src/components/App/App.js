@@ -1,8 +1,8 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import { Route, Routes } from 'react-router-dom';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';

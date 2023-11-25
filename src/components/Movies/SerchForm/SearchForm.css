@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     padding-top: 62px;
-    padding-bottom: 48px;
 }
 
 .search__form {
@@ -30,7 +29,7 @@
 .search__input:focus {
     outline: none;
     border-bottom: 1px solid #777;
-    box-shadow: 0 0 0px 1000px #202020 inset;
+    box-shadow: 0 0 0px 1000px #ded9d9 inset;
   }
 
 .search__input::placeholder {

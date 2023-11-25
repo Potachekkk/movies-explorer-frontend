@@ -3,9 +3,14 @@ import './More.css';
 
 const More = () => {
   return (
-    <div>
-
-    </div>
+    <section className='more'>
+      <button
+        type='button'
+        className='more__button'
+      >
+        Ещё
+      </button>
+    </section>
   );
 };
 

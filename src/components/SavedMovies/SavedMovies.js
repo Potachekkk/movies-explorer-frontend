@@ -1,11 +1,14 @@
 import React from 'react';
 import './SavedMovies.css';
+import SearchForm from '../Movies/SerchForm/SearchForm';
+import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
 
 const SavedMovies = () => {
   return (
-    <div>
-
-    </div>
+    <main className='saved-movies'>
+      <SearchForm />
+      <MoviesCardList />
+    </main>
   );
 };
 

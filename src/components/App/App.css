@@ -38,3 +38,10 @@
   padding-bottom: 23px;
   border-bottom: 1px solid #DADADA;
 }
+
+.section {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 70px;
+}

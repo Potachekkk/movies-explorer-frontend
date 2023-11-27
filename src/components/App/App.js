@@ -1,8 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -14,7 +12,6 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 const App = () => {
   return (
     <div className='content'>
-      <Header />
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/movies' element={<Movies />} />
@@ -24,7 +21,6 @@ const App = () => {
         <Route path='/signin' element={<Login />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
-      < Footer />
     </div>
   );
 };

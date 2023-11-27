@@ -1,6 +1,7 @@
 import React from 'react';
 import './Profile.css';
 import { useState } from 'react';
+import Header from '../Header/Header';
 
 
 const Profile = () => {
@@ -15,7 +16,9 @@ const Profile = () => {
   };
 
   return (
-    <main className='profile'>
+    <>
+    <Header />
+    <main className='profile section'>
       <div className='profile__container'>
         <div className='profile__column'>
           <h1 className='profile__title'>Привет, Виталий!</h1>
@@ -43,6 +46,7 @@ const Profile = () => {
         </div>
       </div>
     </main>
+    </>
   );
 };
 

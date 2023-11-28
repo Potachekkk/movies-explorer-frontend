@@ -12,13 +12,11 @@ import Footer from '../Footer/Footer'
 const Main = () => {
   return (
     <main className='main'>
-        <Header />
         <Promo />
         <AboutProject />
         <Techs />
         <AboutMe />
         <Portfolio />
-        <Footer />
     </main>
   );
 };

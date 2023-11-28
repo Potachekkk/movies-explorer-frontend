@@ -16,8 +16,6 @@ const Profile = () => {
   };
 
   return (
-    <>
-    <Header />
     <main className='profile section'>
       <div className='profile__container'>
         <div className='profile__column'>
@@ -46,7 +44,6 @@ const Profile = () => {
         </div>
       </div>
     </main>
-    </>
   );
 };
 

@@ -1,0 +1,37 @@
+.nav {}
+
+.nav__burger-button-link {}
+
+.nav__container {}
+
+.nav__container_opened {}
+
+.nav__links {}
+
+.nav__close-button-link {}
+
+.nav__list {}
+
+.nav__item {}
+
+.nav__item-link {}
+
+.nav__item-link_type_burger {}
+
+.nav__link {}
+
+.nav__link_active {}
+
+.nav__acc {}
+
+.nav__acc-text {}
+
+.nav__acc-text_active {}
+
+.nav__unauth-list {}
+
+.nav__unauth-item {}
+
+.nav__unauth-link {}
+
+.nav__unauth-link_type_signin {}

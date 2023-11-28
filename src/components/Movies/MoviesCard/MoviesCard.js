@@ -1,7 +1,6 @@
 import React from 'react';
 import './MoviesCard.css';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import img from '../../../images/germany-film.svg'
 
 const MoviesCard = ({title, duration}) => {

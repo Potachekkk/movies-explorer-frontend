@@ -8,10 +8,13 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 const App = () => {
   return (
     <div className='content'>
+      <Header />
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/movies' element={<Movies />} />
@@ -21,6 +24,7 @@ const App = () => {
         <Route path='/signin' element={<Login />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
+      <Footer />
     </div>
   );
 };

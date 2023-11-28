@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import './Navigation.css';
 import { Link, useLocation} from 'react-router-dom';
-import { loggedIn } from '../context/isLoggedIn';
+import { LoggedInContext } from '../context/LoggedInContext';
 
 const Navigation = () => {
-  const isLoggedIn = useContext(loggedIn);
+  const loggedIn = useContext(LoggedInContext);
   const location = useLocation()
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false)
   const pathname = location.pathname;
@@ -19,7 +19,7 @@ const Navigation = () => {
 
   return (
     <nav className='nav'>
-      {isLoggedIn 
+      {loggedIn 
       ? (
         <> <button type='button' onClick={handleBurgerButtonClick} className='nav__burger-button-link'/> 
         <div className={`nav__container ${isBurgerMenuOpen ? 'nav__container_opened' : ''}`} > <div className='nav__links'>
@@ -32,7 +32,7 @@ const Navigation = () => {
             <Link to='/movies' className={`nav__link ${pathname === '/movies' ? 'nav__link_active' : ''}`}>Фильмы</Link>
           </li>
           <li className='nav__item nav__item-link'>
-            <Link to='/saved-movies' className={`nav__link ${pathname === '/saved-movies' ? 'nav__link_active' : ''}`}>Сохрвнённые фильмы</Link>
+            <Link to='/saved-movies' className={`nav__link ${pathname === '/saved-movies' ? 'nav__link_active' : ''}`}>Сохранённые фильмы</Link>
           </li>
         </ul>
         <div className='nav__item'>

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { LoggedInContext} from '../context/LoggedInContext';
 import './App.css';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -12,20 +13,23 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
 const App = () => {
+  const [loggedIn, setLoggedIn] = useState(true);
   return (
-    <div className='content'>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Main />} />
-        <Route path='/movies' element={<Movies />} />
-        <Route path='/saved-movies' element={<SavedMovies />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/signup' element={<Register />} />
-        <Route path='/signin' element={<Login />} />
-        <Route path='*' element={<PageNotFound />} />
-      </Routes>
-      <Footer />
-    </div>
+    <LoggedInContext.Provider value={loggedIn}>
+      <div className='content'>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route path='/movies' element={<Movies />} />
+          <Route path='/saved-movies' element={<SavedMovies />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/signup' element={<Register />} />
+          <Route path='/signin' element={<Login />} />
+          <Route path='*' element={<PageNotFound />} />
+        </Routes>
+        <Footer />
+      </div>
+    </LoggedInContext.Provider>
   );
 };
 

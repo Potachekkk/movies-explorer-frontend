@@ -9,7 +9,7 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    row-gap: 37px;
+    row-gap: 55px;
     column-gap: 24px;
     padding: 70px 70px 28px 70px
 }

@@ -35,7 +35,7 @@ const MoviesCard = ({title, duration, trailerLink}) => {
         <div className='movies-card__container'>
           <div className='movies-card__title-container'>
             <h3 className='movies-card__title'>{title}</h3>
-            <p className='movies-card__duration movies-card__duration_type'>{duration}</p>
+            <p className='movies-card__duration movies-card__duration_type-box'>{duration}</p>
           </div>
         
         </div>

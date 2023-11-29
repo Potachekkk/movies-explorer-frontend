@@ -15,7 +15,7 @@ import Footer from '../Footer/Footer';
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(true);
   return (
-    <LoggedInContext.Provider value={loggedIn}>
+
       <div className='content'>
         <Header />
         <Routes>
@@ -29,7 +29,7 @@ const App = () => {
         </Routes>
         <Footer />
       </div>
-    </LoggedInContext.Provider>
+
   );
 };
 

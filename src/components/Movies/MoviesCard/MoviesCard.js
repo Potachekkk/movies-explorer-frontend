@@ -1,10 +1,11 @@
 import React from 'react';
 import './MoviesCard.css';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import img from '../../../images/germany-film.svg'
 
-const MoviesCard = ({title, duration}) => {
-
+const MoviesCard = ({title, duration, trailerLink}) => {
+  const location = useLocation().pathname
   const [isSavedMovie, setSavedMovie] = useState(false)
   const saveButton = (
     `movies-card__save-button  ${isSavedMovie ? "movies-card__save-button_active": ""}`
@@ -17,10 +18,14 @@ const MoviesCard = ({title, duration}) => {
     <li className='movies-card'>
       <div className='movies-card__img-container'>
         <div className='movies-card__button-container'>
+          {location === '/movies' ? (
             <button type='button' className={saveButton} onClick={handleSaveClick}>Сохранить</button>
+          ) : (
+            <button type='button' className='movies-card__delete-button'></button>
+          )}
         </div>
         <a 
-          href='/movies'
+          href={trailerLink}
           rel='noreferrer'
           target='_blank'
           className='movies-card__link'>

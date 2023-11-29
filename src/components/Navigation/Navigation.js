@@ -45,7 +45,7 @@ const Navigation = () => {
         : (
           <ul className='nav__unauth-list'>
             <li className='nav__unauth-item'>
-              <Link className='nav__unauth-link' to='/signup'>Регистрация</Link>
+              <Link className='nav__unauth-link nav__unauth-link_type_signup' to='/signup'>Регистрация</Link>
             </li>
             <li className='nav__unauth-item'>
               <Link className='nav__unauth-link nav__unauth-link_type_signin' to='/signin'>Войти</Link>

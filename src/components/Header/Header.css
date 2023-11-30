@@ -6,6 +6,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    min-height: 74px;
 }
 
 .header__logo {
@@ -52,4 +53,14 @@
     height: 32px;
     width: 76px;
     font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        padding: 14px 30px
+    }
+
+    .header__logo {
+        margin-top: -10px
+    }
 }

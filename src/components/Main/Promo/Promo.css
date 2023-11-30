@@ -28,3 +28,19 @@
     text-align: center;
     letter-spacing: -0.04em;
 }
+@media screen and (max-width: 768px) {
+    .promo {
+      padding: 8px 20px 0;
+    }
+    
+    .promo__container {
+        height: 834px;
+    }
+
+    .promo__main_title {
+        font-size: 40px;
+        line-height: 52px;
+        max-width: 680px;
+        margin-top: 350px;
+    }
+}

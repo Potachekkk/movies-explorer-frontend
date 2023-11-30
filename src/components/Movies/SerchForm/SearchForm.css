@@ -119,3 +119,12 @@
     border: none;
     border-bottom: 1px solid #424242
 }
+
+@media screen and (max-width: 768px) {
+    .search__input {
+        padding: 15px 40px 15px 20px;
+    }
+    .search__form {
+        margin: 7px -40px 23px 30px;
+      }
+}

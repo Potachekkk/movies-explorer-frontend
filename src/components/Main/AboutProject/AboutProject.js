@@ -19,7 +19,7 @@ const AboutProject = () => {
       <div className='about-project__duration'>
         <div className='about-project__element about-project__element_type_backend'>
           <div className='about-project__box about-project__box_type_backend'>
-            <p className='about-project__duration_text'>1 неделя</p>
+            <p className='about-project__duration_text about-project__duration_text-color'>1 неделя</p>
           </div>
           <p className='about-project__duration_caption'>Back-end</p>
         </div>

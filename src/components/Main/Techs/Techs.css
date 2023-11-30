@@ -42,6 +42,7 @@
     list-style: none;
     display: flex;
     gap: 10px;
+    box-sizing: border-box;
 }
 
 .techs__item {
@@ -64,4 +65,34 @@
     text-align: center;
     letter-spacing: -0.04em;
     margin: 21px 27px 22px;
+}
+
+@media screen and (max-width: 768px) {
+   .techs {
+        padding: 14px 40px 0;
+        height: 567px;
+   }
+   
+   .techs__text {
+        margin: 8px auto 0;
+   }
+
+   .techs__description {
+     font-size: 12px;
+     line-height: 18px;
+   }
+
+   .techs__item {
+    height: 57px;
+    width: 84px;
+   }
+
+   .techs__caption {
+    font-size: 12px;
+    line-height: 14.52px;
+   }
+
+   .techs__list {
+    margin-top: -20px
+   }
 }

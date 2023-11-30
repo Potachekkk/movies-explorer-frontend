@@ -91,10 +91,34 @@
     margin: 0;
 }
 
+.about-project__duration_text-color {
+    color: #000000;
+}
+
 .about-project__duration_caption {
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
     text-align: center;
     margin: 0;
+}
+
+
+@media screen and (max-width: 768px) {
+    .about-project {
+        padding: 31px 50px 0;
+    }
+    
+    .about-project__description {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .about-project__list {
+        margin: 0 0 90px;
+    }
+
+    .about-project__container {
+        padding-bottom: 89px;
+    }
 }

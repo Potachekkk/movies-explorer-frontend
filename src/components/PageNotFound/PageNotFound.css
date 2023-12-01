@@ -44,3 +44,12 @@
     color: #4285F4;
     text-decoration: none;
 }
+
+@media screen and (max-width: 768px) {
+    .page-not-found {
+        padding-top: 408px;
+    }
+    .page-not-found__link {
+        padding-top: 142px;
+    }
+}

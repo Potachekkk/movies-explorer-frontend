@@ -3,7 +3,7 @@ import './More.css';
 
 const More = () => {
   return (
-    <section className='more'>
+    <section className='more section'>
       <button
         type='button'
         className='more__button'

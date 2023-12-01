@@ -3,7 +3,7 @@ import './SearchForm.css';
 
 const SearchForm = () => {
   return (
-    <section className='search'>
+    <section className='search section'>
       <div className='search__container'>
         <form name='search-form' className='search__form'>
           <input className='search__input search__input-line' type='text' placeholder='Фильм' required />

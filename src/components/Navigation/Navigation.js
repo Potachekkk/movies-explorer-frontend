@@ -28,7 +28,7 @@ const Navigation = () => {
           <li className='nav__item nav__item-link nav__item-link_type_burger'>
             <Link to='/' className={`nav__link ${pathname === '/' ? 'nav__link_active' : ''}`}>Главная</Link>
           </li>
-          <li className='nav__item nav__item-link'>
+          <li className='nav__item nav__item_active nav__item-link'>
             <Link to='/movies' className={`nav__link ${pathname === '/movies' ? 'nav__link_active' : ''}`}>Фильмы</Link>
           </li>
           <li className='nav__item nav__item-link'>

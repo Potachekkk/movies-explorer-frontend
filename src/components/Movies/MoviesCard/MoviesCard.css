@@ -168,8 +168,16 @@
 
 
 @media screen and (max-width: 768px) {
+    .movies-card {
+        max-width: 339px;
+        min-height: 190px;
+      }
     .movies-card__img {
         height: 190px;
         width: 339px;
+    }
+    .movies-card__container {
+        height: 16px;
+        padding: 25px 1px 17px;
     }
 }

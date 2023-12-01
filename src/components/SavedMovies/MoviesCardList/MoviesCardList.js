@@ -5,7 +5,7 @@ import MoviesCard from '../MoviesCard/MoviesCard'
 
 const MoviesCardList = () => {
   return (
-    <section className='movies-card-list'>
+    <section className='movies-card-list section'>
       <p className='movies-card-list__not-found'>Фильмы не найдены</p>
       <ul className='movies-card-list__list'>
         {moviesList.map((movie, index) => {

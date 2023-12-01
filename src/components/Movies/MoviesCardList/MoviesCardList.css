@@ -27,9 +27,16 @@
   
     .movies-card-list__list {
       grid-template-columns: repeat(2, 1fr);
+    
       row-gap: 30px;
       column-gap: 30px;
-    }
-  }
 
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .movies-card-list {
+      padding-top: 68px;
+    }
+}
   

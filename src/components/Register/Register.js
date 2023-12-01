@@ -9,7 +9,7 @@ import AuthPassword from '../Auth/AuthPassword/AuthPassword';
 const Register = () => {
   return (
     <Auth
-     title='Добро Пожаловать!'
+     title='Добро пожаловать!'
      buttonText='Зарегистрироваться'
      linkText='Уже зарегистрированы?'
      linkTitle='Войти'

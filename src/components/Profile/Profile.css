@@ -146,3 +146,16 @@
     background: #262626;
     color: #525252;
 }
+
+@media screen and (max-width: 768px) {
+    .profile {
+        padding: 230px 50px 70px;
+    }
+    .profile__footer {
+        margin: 180px auto 91px auto;
+    }
+
+    .profile__form {
+        margin-top: -27px
+    }
+}

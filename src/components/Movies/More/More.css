@@ -31,3 +31,15 @@
         padding-top: 20px;
     }
 }
+
+@media screen and (max-width: 650px) {
+    .more {
+        padding-top: 23px;
+        padding-bottom: 105px;
+    }
+    
+    .more__button {
+        padding: 11px 20px 9px;
+        max-width: 240px;
+    }
+}

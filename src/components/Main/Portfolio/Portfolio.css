@@ -58,7 +58,7 @@
     letter-spacing: -0.04em;
 }
 
-.porfolio__arrow {
+.portfolio__arrow {
     width: 18px;
     height: 17px;
     margin-left: auto;
@@ -74,5 +74,33 @@
     .portfolio__info {
         font-size: 28px;
         line-height: 50px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .portfolio {
+        padding: 0 14px 0;
+        margin: -14px auto;
+    }
+    .portfolio__title {
+        font-size: 14px;
+        margin-top: 1px;
+    }
+
+    .portfolio__info {
+        font-size: 18px;
+        line-height: 28px;
+    }
+    .portfolio__arrow {
+        width: 10px;
+        height: 10px;
+    }
+    .portfolio__link {
+        height: 25px;
+    }
+
+    .portfolio__item {
+        padding-bottom: 19px;
+        border-bottom: 1px solid #E6E6E6
     }
 }

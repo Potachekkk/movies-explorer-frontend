@@ -10,19 +10,19 @@ const Portfolio = () => {
         <li className='portfolio__item'>
           <a rel='noreferrer' target='_blank' className='portfolio__link' href='https://github.com/Potachekkk/how-to-learn'>
             <p className='portfolio__info'>Статичный сайт</p>
-            <img className='porfolio__arrow' src={portfolioArrow} alt='Стрелка'/>
+            <img className='portfolio__arrow' src={portfolioArrow} alt='Стрелка'/>
           </a>
         </li>
         <li className='portfolio__item'>
           <a rel='noreferrer' target='_blank' className='portfolio__link' href='https://github.com/Potachekkk/russian-travel'>
             <p className='portfolio__info'>Адаптивный сайт</p>
-            <img className='porfolio__arrow' src={portfolioArrow} alt='Стрелка'/>
+            <img className='portfolio__arrow' src={portfolioArrow} alt='Стрелка'/>
           </a>
         </li>
         <li className='portfolio__item'>
           <a rel='noreferrer' target='_blank' className='portfolio__link' href='https://github.com/Potachekkk/react-mesto-api-full-gha'>
             <p className='portfolio__info'>Одностраничное приложение</p>
-            <img className='porfolio__arrow' src={portfolioArrow} alt='Стрелка'/>
+            <img className='portfolio__arrow' src={portfolioArrow} alt='Стрелка'/>
           </a>
         </li>
       </ul>

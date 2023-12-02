@@ -233,3 +233,22 @@
         top: 15px
     }
 }
+
+@media screen and (max-width: 650px) {
+    .nav__unauth-item {
+        font-size: 10px
+    }
+    .nav__unauth-link_type_signup {
+        margin-right: 14px;
+    }
+    .nav__unauth-link_type_signin {
+        width: 54px;
+        height: 26px;
+    }
+    .nav__burger-button-link {
+        width: 33px;
+        height: 33px;
+        right: 19px;
+        top: 13px;
+    }
+}

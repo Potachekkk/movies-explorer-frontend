@@ -138,13 +138,24 @@
         bottom: 2px;
         width: 44px;
     }
-
-
     .search__box {
         margin-top: 15px;
     }
     .search__checkbox-element {
         width: 34px;
         height: 14px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .search__input {
+        width: 177px;
+        padding: 15px 40px 15px 13px;
+    }
+    .search__form {
+        margin-left: 14px;
+    }
+    .search__button {
+        right: -55px
     }
 }

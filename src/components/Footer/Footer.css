@@ -34,8 +34,6 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 15.73px;
-    margin-left: 30px;
-    position: relative;
 }
 
 .footer__year {
@@ -43,10 +41,7 @@
 }
 
 .footer__nav {
-    position: absolute;
     margin-left: auto;
-    right: 60px;
-    top: 0
 }
 
 .footer__list {
@@ -74,11 +69,40 @@
        padding: 78px 40px 20px;
     }
 
-    .footer__container {
-        margin-left: -12px;
+}
+
+@media screen and (max-width: 650px) {
+
+    .footer {
+        padding: 58px 10px 20px;
+    }
+    .footer__title {
+        font-size: 12px;
+        line-height: 14.52px;
     }
 
+    .footer__title::after {
+        margin: 2px 10px 30px;
+    }
+    .footer__container {
+        flex-direction: column;
+        font-size: 12px;
+        line-height: 14.52px;
+        align-items: center;
+        gap: 30px;
+    }
+    .footer__list {
+        margin: 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    .footer__year {
+        order: 2;
+        color: 
+        #8B8B8B;
+    }
     .footer__nav {
-        right: -20px;
+        margin: 0;
     }
 }

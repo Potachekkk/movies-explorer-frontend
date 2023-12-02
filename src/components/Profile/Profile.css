@@ -159,3 +159,22 @@
         margin-top: -27px
     }
 }
+
+@media screen and (max-width: 400px) {
+    .profile {
+        padding: 62px 31px 70px;
+    }
+    .profile__footer {
+        margin: 348px auto 91px auto;
+    }
+
+    .profile__form {
+        margin-top: -27px
+    }
+    .profile__input-container {
+        margin-top: -15px;
+    }
+    .profile__button {
+        font-size: 12px;
+    }
+}

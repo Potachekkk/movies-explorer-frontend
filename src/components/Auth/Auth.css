@@ -122,3 +122,33 @@
       }
 
 }
+
+@media screen and (max-width: 500px) {
+    .auth {
+        width: 100%;
+        padding: 56px 30px 30px;
+    }
+
+    .auth__logo-link {
+        align-self: center;
+    }
+
+    .auth__title {
+        margin: 50px auto 80px;
+        text-align: center;
+    }
+
+    .auth__submit-button {
+        margin: 0 0 14px;
+        padding: 15px 20px;
+        font-size: 12px;
+    }
+
+    .auth__link-container {
+        font-size: 12px;
+    }
+
+    .auth__question {
+        margin: 0 7px 0 0;
+    }
+}

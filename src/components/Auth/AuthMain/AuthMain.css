@@ -53,10 +53,4 @@
     overflow: hidden;
 }
 
-@media screen and (max-width: 768px) {
-    .auth__main-container {
-        width: 396px;
-    }
-
-}
   

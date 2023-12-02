@@ -51,6 +51,7 @@
 .auth__footer {
     display: flex;
     flex-direction: column;
+    margin-bottom: 40px;
 }
 
 .auth__error-text {
@@ -150,5 +151,8 @@
 
     .auth__question {
         margin: 0 7px 0 0;
+    }
+    .auth__footer {
+        margin-bottom: -137px;
     }
 }

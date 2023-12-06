@@ -125,7 +125,7 @@
         padding-top: 70px;
     }
     .search__input {
-        width: 595px;
+        margin-right: 85px;
         padding: 15px 40px 15px 20px;
     }
     .search__form {
@@ -147,9 +147,10 @@
     }
 }
 
+
+
 @media screen and (max-width: 550px) {
     .search__input {
-        width: 177px;
         padding: 15px 40px 15px 13px;
     }
     .search__form {
@@ -157,5 +158,11 @@
     }
     .search__button {
         right: -55px
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .search__input {
+        margin-right: 68px;
     }
 }

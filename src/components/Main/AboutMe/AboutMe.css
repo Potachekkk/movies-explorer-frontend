@@ -76,7 +76,9 @@
     .about-me {
         padding: 0 50px 0;
     }
-
+    .about-me__info {
+        margin: 0 49px auto 0;
+    }
     .about-me__title {
         margin: 93px auto 66px;
     }
@@ -103,7 +105,7 @@
     }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 580px) {
     .about-me {
         padding: 0 14px 0;
         margin-top: -10px;

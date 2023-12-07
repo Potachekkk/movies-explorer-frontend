@@ -8,8 +8,14 @@
     display: flex;
     margin: 0 0 29px 70px;
     position: relative;
+    flex-direction: column;
 }
 
+.search__container {
+    position: relative;
+    display: flex;
+
+}
 .search__input {
     padding: 15px 10px 15px 20px;
     border: none;
@@ -19,6 +25,7 @@
     line-height: 18px;
     font-weight: 400;
     border-radius: 8px;
+    color: white;
 }
 
 .search__line {
@@ -30,13 +37,28 @@
     outline: none;
     border-bottom: 1px solid #777;
     box-shadow: 0 0 0px 1000px #ded9d9 inset;
+    color: #2F2F2F;
   }
 
 .search__input::placeholder {
     text-align: left;
     color: #8B8B8B;
-  }
+}
 
+.search__input_incorrect {
+    color: #EE3465;
+}
+
+.search__input-error {
+    display: block;
+    min-height: 19px;
+    margin: 0 auto 10px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.2;
+    text-align: center;
+    color: #EE3465;
+}
 .search__button {
     margin: 0 70px 0 10px;
     /* bottom: 2px;

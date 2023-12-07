@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import Navigation from '../Navigation/Navigation'
 import logo from '../../images/logo.png'
 import './Header.css';
-import { headerPathNames } from '../../utils/PathNames';
+import { headerPathNames } from '../../utils/constant';
 
 const Header = () => {
   const location = useLocation()

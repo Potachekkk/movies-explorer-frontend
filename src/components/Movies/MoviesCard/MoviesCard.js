@@ -1,41 +1,48 @@
 import React from 'react';
 import './MoviesCard.css';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import img from '../../../images/germany-film.svg'
+// import { useLocation } from 'react-router-dom';
+// import img from '../../../images/germany-film.svg'
+import { formatDuratonMovie } from '../../../utils/formatDurationMovie';
 
-const MoviesCard = ({title, duration, trailerLink}) => {
-  const location = useLocation().pathname
-  const [isSavedMovie, setSavedMovie] = useState(false)
-  const saveButton = (
-    `movies-card__save-button  ${isSavedMovie ? "movies-card__save-button_active": ""}`
-  );
+const MoviesCard = ({movie, savedMovies, onSaveButtonClick}) => {
+  // const location = useLocation().pathname
+  // const [isSavedMovie, setSavedMovie] = useState(false)
+  // const saveButton = (
+  //   `movies-card__save-button  ${savedMovies ? "movies-card__save-button_active": ""}`
+  // );
+  const [isLoading, setIsLoading] = useState(false);
+  let isSaved;
+  if (savedMovies) {
+    isSaved = savedMovies.some((savedMovie) => savedMovie.movieId === movie.movieId);
+  }
 
-  function handleSaveClick() {
-    setSavedMovie(!isSavedMovie);
-}
+  async function handleSaveButtonClick() {
+    setIsLoading(true);
+
+    await onSaveButtonClick(movie);
+
+    setIsLoading(false);
+  }
+
   return (
     <li className='movies-card'>
       <div className='movies-card__img-container'>
         <div className='movies-card__button-container'>
-          {location === '/movies' ? (
-            <button type='button' className={saveButton} onClick={handleSaveClick}>Сохранить</button>
-          ) : (
-            <button type='button' className='movies-card__delete-button'></button>
-          )}
+            <button type='button' className={`movies-card__save-button ${isSaved ? 'movies-card__save-button_active' : ''}`} onClick={handleSaveButtonClick} disabled={isLoading}>Сохранить</button>
         </div>
         <a 
-          href={trailerLink}
+          href={movie.trailerLink}
           rel='noreferrer'
           target='_blank'
           className='movies-card__link'>
-            <img className='movies-card__img' src={img} alt={title}/>
+            <img className='movies-card__img' src={movie.image} alt={movie.nameRu}/>
           </a>
         </div>
         <div className='movies-card__container'>
           <div className='movies-card__title-container'>
-            <h3 className='movies-card__title'>{title}</h3>
-            <p className='movies-card__duration movies-card__duration_type-box'>{duration}</p>
+            <h3 className='movies-card__title'>{movie.nameRu}</h3>
+            <p className='movies-card__duration movies-card__duration_type-box'>{formatDuratonMovie(movie.duration)}</p>
           </div>
         
         </div>

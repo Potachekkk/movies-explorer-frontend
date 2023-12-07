@@ -1,4 +1,4 @@
-const headerPathNames = ['/', '/movies', '/saved-movies', '/profile'];
-const footerPathNames = ['/', '/movies', '/saved-movies'];
+// const headerPathNames = ['/', '/movies', '/saved-movies', '/profile'];
+// const footerPathNames = ['/', '/movies', '/saved-movies'];
 
-export {headerPathNames, footerPathNames}
+// export {headerPathNames, footerPathNames}

@@ -45,6 +45,13 @@
   margin: 0 auto;
 }
 
+.link {
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: white;
+}
+
 @media screen and (max-width: 650px) {
   .main__title {
     font-size: 18px;

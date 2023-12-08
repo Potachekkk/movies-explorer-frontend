@@ -1,48 +1,126 @@
-import React, { useState, useRef, useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
+import { useLocation } from 'react-router-dom';
+import Preloader from '../../Preloader/Preloader';
 import './MoviesCardList.css';
-// import { moviesList } from '../../../utils/MoviesList'
 import MoviesCard from '../MoviesCard/MoviesCard'
-import { SHOWN_MOVIES } from '../../../utils/constant';
-import More from '../More/More';
+import {
+  MIN_BIG_SCREEN_SIZE,
+  MAX_MEDIUM_SCREEN_SIZE,
+  MIN_MEDIUM_SCREEN_SIZE,
+  MAX_SMALL_SCREEN_SIZE,
+  CARDS_QUANTITY_DECKTOP,
+  CARDS_QUANTITY_TABLET,
+  CARDS_QUANTITY_MOBILE,
+  CARDS_MORE_DECKTOP,
+  CARDS_MORE_MOBILE,
+  NOTHING_FOUND,
+  MOVIES_SERVER_ERROR
+} from '../../../utils/constant'
 
-const MoviesCardList = ({ foundMovies, savedMovies, onSaveButtonClick }) => {
-  const [shownMovies, setShownMovies] = useState([]);
-  const moviesCardListElement = useRef();
+const MoviesCardList = ({ filteredMovies, savedMovies, onSaveMovie, onDeleteMovie, isSavedFilms, isRequestError, isNotFound, isLoading }) => {
+  // текущая страница
+  const currentLocation = useLocation().pathname;
+  // количество показываемых карточек
+  const [shownMoviesQuantity, setShownMoviesQuantity] = useState(0);
 
-  const handleMoreButtonClick = () => {
-    const numberOfColumns = window.getComputedStyle(moviesCardListElement.current).getPropertyValue('grid-template-columns').split(' ').length;
-    const numberOfShownMovies = Math.ceil(shownMovies.length / numberOfColumns) * numberOfColumns;
+  // устанавливем видимое количество карточек на странице в зависимости от разрешения экрана
+  function setShownQuantity() {
+      const display = window.innerWidth;
+      if (display > MIN_BIG_SCREEN_SIZE) {
+          setShownMoviesQuantity(CARDS_QUANTITY_DECKTOP);
+      } else if (display > MIN_MEDIUM_SCREEN_SIZE && display < MAX_MEDIUM_SCREEN_SIZE) {
+          setShownMoviesQuantity(CARDS_QUANTITY_TABLET);
+      } else if (display < MAX_SMALL_SCREEN_SIZE) {
+          setShownMoviesQuantity(CARDS_QUANTITY_MOBILE);
+      }
+  }
 
-    setShownMovies(foundMovies.slice(0, numberOfShownMovies + SHOWN_MOVIES[numberOfColumns].ADD));
-  };
-
+  // колличество карточек устанавливается при открытии страницы
   useEffect(() => {
-    if (foundMovies.length) {
-      const numberOfColumns = window.getComputedStyle(moviesCardListElement.current).getPropertyValue('grid-template-columns').split(' ').length;
+      setShownQuantity();
+  }, []);
 
-      setShownMovies(foundMovies.slice(0, SHOWN_MOVIES[numberOfColumns].INITIAL));
-    }
-  }, [foundMovies]);
+  // откладываем работу функции в случае изменения ширины экрана в отладчике
+  useEffect(() => {
+      setTimeout(() => {
+          window.addEventListener('resize', setShownQuantity);
+      }, 500);
+      return () => {
+          window.removeEventListener('resize', setShownQuantity);
+      }
+  }, []);
+
+  // функция подгрузки карточек в зависимости от разрешения экрана
+  function loadMoreMovies() {
+      const display = window.innerWidth;
+      if (display > MIN_BIG_SCREEN_SIZE) {
+          setShownMoviesQuantity(shownMoviesQuantity + CARDS_MORE_DECKTOP);
+      } else if (display > MIN_MEDIUM_SCREEN_SIZE && display < MAX_MEDIUM_SCREEN_SIZE) {
+          setShownMoviesQuantity(shownMoviesQuantity + CARDS_MORE_MOBILE);
+      } else if (display < MAX_SMALL_SCREEN_SIZE) {
+          setShownMoviesQuantity(shownMoviesQuantity + CARDS_MORE_MOBILE);
+      }
+  }
+
+  // получение сохраненной карточки
+  function getSavedMovieCard(savedMovies, card) {
+      return savedMovies.find((savedMovie) => savedMovie.movieId === card.id);
+  }
   return (
-    <>
     <section className='movies-card-list section'>
-      <ul className='movies-card-list__list' ref={moviesCardListElement}>
-        {shownMovies.map((movie) => {
-          return (
-          <MoviesCard 
-            key={movie.movieId} 
-            movie={movie} 
-            savedMovies={savedMovies} 
-            onSaveButtonClick={onSaveButtonClick} 
-          />);
-        })}
-      </ul>
+      {isLoading && <Preloader />}
+            {!isLoading && !isRequestError && !isNotFound && (
+                <>
+                {currentLocation === '/saved-movies' ? (
+                  <>
+                    <ul className='movies-card-list__list'>
+                    {filteredMovies.map(item => {
+                      return (
+                        <MoviesCard 
+                          card={item}
+                          key={isSavedFilms ? item._id : item.id}
+                          savedCard={getSavedMovieCard(savedMovies, item)}
+                          onSaveMovie={onSaveMovie}
+                          onDeleteMovie={onDeleteMovie}
+                          isSavedFilms={isSavedFilms}
+                          savedMovies={savedMovies}
+                          />
+                          )
+                      }
+                      )}
+                    </ul>
+                    <div className='movies-card__button-container'></div>
+                    </>
+                ) : (
+                  <>
+                  <ul className='movies-card-list__list'>
+                    {filteredMovies.slice(0, shownMoviesQuantity).map(item => {
+                        return (
+                            <MoviesCard
+                                card={item}
+                                key={isSavedFilms ? item._id : item.id}
+                                savedCard={getSavedMovieCard(savedMovies, item)}
+                                onSaveMovie={onSaveMovie}
+                                onDeleteMovie={onDeleteMovie}
+                                isSavedFilms={isSavedFilms}
+                                savedMovies={savedMovies}
+                            />
+                        )
+                        }
+                      )}
+                  </ul>
+                  <div className='movies-card__button-container'>
+                  {filteredMovies.length > shownMoviesQuantity ? (
+                                    <button onClick={loadMoreMovies} type="button" className="cards__loading-button">Ещё</button>
+                                ) : ''}
+                  </div>
+                  </>
+                )}
+                </>
+            )}
+            {/* {isNotFound && !isLoading && <EmptyResults title={NOTHING_FOUND} />} */}
+            {/* {isRequestError && !isLoading && <EmptyResults title={MOVIES_SERVER_ERROR} />}   */}
     </section>
-    {shownMovies.length < foundMovies.length && (
-      <More onMoreButtonClick={handleMoreButtonClick} />
-    )}
-    </>
-  );
-};
-
+  )
+  }
 export default MoviesCardList;

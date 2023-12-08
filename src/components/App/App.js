@@ -11,20 +11,35 @@ import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import api from '../../utils/MainApi';
+import * as api from '../../utils/MainApi';
 import { CurrentUserContext } from '../context/CurrentUserContext';
+import MoviesPage from '../MoviesPage/MoviesPage';
+import SavedMoviesPage from '../SavedMoviesPage/SavedMoviesPage';
 
 
 const App = () => {
-  const [savedMovies, setSavedMovies] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(true);
-  const [currentUser, setCurrentUser] = useState({name: 'Vlad', email: 'potachekkk@yandex.ru'});
+  // хуки навигации
   const pathLocation = useLocation().pathname;
   const navigate = useNavigate();
+  // состояние авторизации пользователя
+  const [loggedIn, setLoggedIn] = useState(false);
+  // состояние загрузки во время сабмита форм
+  const [isLoading, setIsLoading] = useState(false);
+  // текущий пользователь
+  const [currentUser, setCurrentUser] = useState({});
+  // состояние отображения попапа
+  const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
+  // текст и картинка для отображения в инфо-попапе
+  const [infoTitle, setInfoTitle] = useState("Успешно!");
+  // const [infoImg, setInfoImg] = useState(SuccessImgSrc);
+  // карточки сохраненных фильмов
+  const [savedMovies, setSavedMovies] = useState([]);
+  // текст на сабмит-кнопке в профиле пользователя
+  const [editSubmitTitle, setEditSubmitTitle] = useState("Сохранить");
 
-
+  // проверка токена каждый раз, когда пользователь открывает страницу
   useEffect(() => {
-    tokenCheck();
+    checkToken();
   }, []);
 
   // загрузка сохраненных карточек и профиля пользователя
@@ -42,10 +57,10 @@ const App = () => {
     }
   }, [loggedIn]);
 
-  function tokenCheck() {
+  function checkToken() {
     const currentToken = localStorage.getItem('token');
     if (currentToken) {
-      api.checkToken(currentToken).then((res) => {
+      api.getContent(currentToken).then((res) => {
         if (res) {
           setLoggedIn(true);
           navigate(pathLocation);
@@ -59,27 +74,37 @@ const App = () => {
 
   function saveMovie(movieCard) {
     const currentToken = localStorage.getItem('token');
-    api.saveMovie(movieCard, currentToken)
+    api.saveMoviesCard(movieCard, currentToken)
       .then((savedCard) => {
         setSavedMovies([savedCard, ...savedMovies]);
+
         console.log(`Карточка cохранена.`)
       })
       .catch((err) => {
+
         console.log(`Ошибка при сохранении карточки.`)
+
       });
   }
 
-  const handleDeleteMovie = (movieId) => {
-    api.deleteMovie(movieId)
+  // удаление фильма из избранного
+  function deleteMovie(movieCard) {
+    const currentToken = localStorage.getItem('token');
+    api.deleteMoviesCard(movieCard._id, currentToken)
       .then(() => {
-        setSavedMovies(savedMovies.filter((movie) => {
-          return movie._id !== movieId;
-        }));
+        setSavedMovies((state) => state.filter((card) => card !== movieCard));
+
+        console.log(`Карточка удалена.`)
       })
       .catch((err) => {
-        console.error(err);
+
+        console.log(`Ошибка при удалении карточки.`)
+
+        setIsInfoPopupOpen(true);
       });
-  };
+  }
+
+
   
   return (
     <LoggedInContext.Provider value={loggedIn}>
@@ -90,14 +115,18 @@ const App = () => {
           <Route path='/' element={<Main />} />
           <Route path='/movies' element={
           <Movies
-            onSaveMovie={saveMovie}
-            onDeleteMovie={handleDeleteMovie}
+            element={MoviesPage}
+            loggedIn={loggedIn}
             savedMovies={savedMovies}
+            onSaveMovie={saveMovie}
+            onDeleteMovie={deleteMovie}
            />} />
           <Route path='/saved-movies' element={
           <SavedMovies
+            element={SavedMoviesPage}
+            loggedIn={loggedIn}
             savedMovies={savedMovies}
-            onDeleteMovie={handleDeleteMovie}
+            onDeleteMovie={deleteMovie}
           />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/signup' element={<Register />} />

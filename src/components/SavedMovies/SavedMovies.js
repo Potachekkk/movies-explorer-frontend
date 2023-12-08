@@ -1,62 +1,52 @@
 import React, { useState, useEffect} from 'react';
-import './SavedMovies.css';
 import SearchForm from '../Movies/SearchForm/SearchForm';
-import MoviesCardList from './MoviesCardList/MoviesCardList';
-import searchMovies from '../../utils/searchMovies';
+import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
+import { filterMovies, filterDuration } from '../../utils/MoviesFilter';
 
 const SavedMovies = ({ savedMovies, onDeleteMovie }) => {
-  const [searchText, setSearchText] = useState('');
-  const [areShortMoviesSelected, setAreShortMoviesSelected] = useState(false);
-  const [foundMovies, setFoundMovies] = useState(savedMovies);
+  // массив фильмов, отфильтрованный по запросу и длительности
+  const [filteredMovies, setFilteredMovies] = useState(savedMovies);
+  // статус состояния чекбокса короткометражек
+  const [isCheckboxActive, setIsCheckboxActive] = useState(false);
+  // ошибка при отсутствии найденных фильмов
+  const [isNotFound, setIsNotFound] = useState(false); 
+  // запрос пользователя
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const handleDeleteMovie = (movie) => {
-    const savedMovie = savedMovies.find((savedMovie) => {
-      return movie.movieId === savedMovie.movieId;
-    });
+  // меняем запрос в поисковой строке
+  function onSearchMovies(query) {
+      setSearchQuery(query);
+  }
 
-    return onDeleteMovie(savedMovie._id);
-  };
+  // переключаем состояние чекбокса
+  function handleShortMovies() {
+      setIsCheckboxActive(!isCheckboxActive);
+  }
 
-  const handleCheckboxChange = (value) => {
-    setAreShortMoviesSelected(value);
-  };
-
-  const handleSubmit = ({ searchText, areShortMoviesSelected }) => {
-    setAreShortMoviesSelected(areShortMoviesSelected);
-    setSearchText(searchText);
-  };
+  // получаем отфильтрованные фильмы
+  useEffect(() => {
+      const moviesList = filterMovies(savedMovies, searchQuery);
+      setFilteredMovies(isCheckboxActive ? filterDuration(moviesList) : moviesList);
+  }, [savedMovies, isCheckboxActive, searchQuery]);
 
   useEffect(() => {
-    if (savedMovies) {
-      const foundMovies = searchMovies(
-        savedMovies,
-        searchText,
-        areShortMoviesSelected,
-      );
-      setFoundMovies(foundMovies);
-    }
-  }, [savedMovies, searchText, areShortMoviesSelected]);
+      if (filteredMovies.length === 0) {
+          setIsNotFound(true);
+      } else {
+          setIsNotFound(false);
+      }
+  }, [filteredMovies]);
+
   return (
     <main className='saved-movies'>
-      <SearchForm
-        onSubmit={handleSubmit}
-        onCheckboxChange={handleCheckboxChange}
-        defaultSearchText={searchText}
-        defaultAreShortMoviesSelected={areShortMoviesSelected}
+      <SearchForm onSearch={onSearchMovies} onFilter={handleShortMovies} />
+      <MoviesCardList 
+        savedMovies={savedMovies} 
+        isNotFound={isNotFound}
+        isSavedFilms={true} 
+        filteredMovies={filteredMovies} 
+        onDeleteMovie={onDeleteMovie}  
       />
-      {searchText && foundMovies.length === 0 ? (
-        <p className='movies__not-found'>Ничего не найдено</p>
-      ) : (
-        <MoviesCardList
-          movies={foundMovies}
-          onDeleteMovie={handleDeleteMovie}
-        />
-      ) || 
-      (<MoviesCardList
-        movies={savedMovies}
-        onDeleteMovie={handleDeleteMovie}
-      />
-      )}
     </main>
   );
 };

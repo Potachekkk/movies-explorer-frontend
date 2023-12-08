@@ -1,72 +1,64 @@
 import React, { useEffect, useState} from 'react';
 import './SearchForm.css';
-import useForm from '../../../utils/useForm';
+import { useLocation } from 'react-router-dom';
+// import { KEY_WORD_ERROR } from '../../../utils/constant';
 
-const SearchForm = ({ 
-  onSubmit,
-  onCheckboxChange,
-  isLoading,
-  defaultSearchText,
-  defaultAreShortMoviesSelected,
-}) => {
-  const defaultValues = {
-    searchText: defaultSearchText,
-    areShortMoviesSelected: defaultAreShortMoviesSelected,
-  };
+const SearchForm = ({ onSearch, onFilter, isCheckboxActive }) => {
+  const currentLocation = useLocation().pathname;
+    const [searchValue, setSearchValue] = useState("");
+    const [isError, setIsError] = useState(false);
 
-  const [errorText, setErrorText] = useState('');
-  
-  const [values, errors, isValid, handleChange] = useForm(defaultValues, !!defaultSearchText);
-  
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+    // если мы на странице фильмов, получаем из хранилища поисковый запрос
+    useEffect(() => {
+        if (currentLocation === '/movies' && localStorage.getItem('movieSearch')) {
+            setSearchValue(localStorage.getItem('movieSearch'));
+        }
+    }, [currentLocation]);
 
-    if (!isValid) {
-      setErrorText('Нужно ввести ключевое слово');
-      return;
+
+    function changeSearch(e) {
+        setSearchValue(e.target.value);
     }
 
-    onSubmit(values);
-  }
-
-  useEffect(() => {
-    if (values.areShortMoviesSelected !== defaultAreShortMoviesSelected) {
-      onCheckboxChange(values.areShortMoviesSelected);
+    function handleSubmit(e) {
+        e.preventDefault();
+        if (searchValue.trim().length === 0) {
+            setIsError(true);
+        } else {
+            setIsError(false);
+            onSearch(searchValue);
+        }
     }
-  }, [values.areShortMoviesSelected, onCheckboxChange, defaultAreShortMoviesSelected]);
-
-  useEffect(() => {
-    if (isValid) {
-      setErrorText('');
-    }
-  }, [isValid]);
   return (
     <section className='search section'>
 
         <form name='search-form' onSubmit={handleSubmit} className='search__form' noValidate>
         <div className='search__container'>
           <input
-            name='searchText'
-            className={`search__input search__input-line ${errorText ? 'search__input_incorrect' : ''}`}
-            value={values.searchText}
-            onChange={handleChange}
-            disabled={isLoading}
-            type='text' 
-            placeholder='Фильм' 
-            required 
+            name='"search-input"'
+            className={`search__input search__input-line ${isError ? 'search__input_incorrect' : ''}`}
+            onChange={changeSearch}
+            value={searchValue || ""}
+            id="search-input"
+            type="text"
+            placeholder="Фильм"
+            required
+            minLength="1"
+            maxLength="500"
           />
-          <button type='submit' className={`search__button ${isLoading ? '' : 'link' }`} disabled={isLoading}></button>
+          <button type='submit' className='search__button' ></button>
           </div>
-      <span className='search__input-error'>{errorText}</span>
+      <span className='search__input-error'>{isError}</span>
       <label className='search__box'>
         <input 
           type='checkbox' 
-          name='areShortMoviesSelected' 
+          name="filter-checkbox" 
           id='short-films' 
-          checked={values.areShortMoviesSelected}
-          onChange={handleChange}
-          disabled={isLoading}
-          className='search__checkbox' 
+          checked={isCheckboxActive}
+          onChange={changeSearch}
+          className='search__checkbox'
+          value="true"
+          onFilter={onFilter}
         />
         <span className='search__checkbox-element'></span>
         <span className='search__checkbox-title'>Короткометражки</span>

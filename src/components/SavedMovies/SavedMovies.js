@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import './SavedMovies.css';
 import SearchForm from '../Movies/SearchForm/SearchForm';
-import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
+import MoviesCardList from './MoviesCardList/MoviesCardList';
 import searchMovies from '../../utils/searchMovies';
 
 const SavedMovies = ({ savedMovies, onDeleteMovie }) => {
@@ -9,7 +9,7 @@ const SavedMovies = ({ savedMovies, onDeleteMovie }) => {
   const [areShortMoviesSelected, setAreShortMoviesSelected] = useState(false);
   const [foundMovies, setFoundMovies] = useState(savedMovies);
 
-  const handleUnsaveMovie = (movie) => {
+  const handleDeleteMovie = (movie) => {
     const savedMovie = savedMovies.find((savedMovie) => {
       return movie.movieId === savedMovie.movieId;
     });
@@ -49,12 +49,12 @@ const SavedMovies = ({ savedMovies, onDeleteMovie }) => {
       ) : (
         <MoviesCardList
           movies={foundMovies}
-          onUnsaveMovie={handleUnsaveMovie}
+          onDeleteMovie={handleDeleteMovie}
         />
       ) || 
       (<MoviesCardList
         movies={savedMovies}
-        onUnsaveMovie={handleUnsaveMovie}
+        onDeleteMovie={handleDeleteMovie}
       />
       )}
     </main>

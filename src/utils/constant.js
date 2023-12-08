@@ -1,5 +1,5 @@
 // MainApi
-const MAIN_BASE_URL = "https://api.movies.potacheekkk.nomoredomains.rocks";
+const MAIN_BASE_URL = "https://api.vladiator.nomoredomainsmonster.ru";
 
 const headerPathNames = ['/', '/movies', '/saved-movies', '/profile'];
 const footerPathNames = ['/', '/movies', '/saved-movies'];

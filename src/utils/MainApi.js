@@ -89,7 +89,7 @@ class Api {
     })
       .then((res) => {
         return this._checkResponse(res);
-      })
+    })
   }
 
   saveMovie(movie) {
@@ -102,7 +102,7 @@ class Api {
         return this._checkResponse(res);
       })
   }
-
+  
   deleteMovie(movieId) {
     return fetch(`${this._url}/movies/${movieId}`, {
       method: 'DELETE',
@@ -114,9 +114,18 @@ class Api {
   }
 };
 
-export const api = new Api({
-  url: MAIN_BASE_URL,
+// const api = new Api({
+//   url: MAIN_BASE_URL,
+//   headers: {
+//     'Content-Type': 'application/json',
+//   }
+// });
+
+const api = new Api({
+  url: "http://localhost:3000",
   headers: {
     'Content-Type': 'application/json',
   }
 });
+
+export default api

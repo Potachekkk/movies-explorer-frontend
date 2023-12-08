@@ -2,13 +2,11 @@ import React, { useState, useEffect} from 'react';
 import moviesApi from '../../utils/MoviesApi';
 import './Movies.css';
 import SearchForm from './SearchForm/SearchForm'
-// import MoviesCardList from './MoviesCardList/MoviesCardList'
-// import More from './More/More'
 import formatMovies from '../../utils/formatMovies';
 import searchMovies  from '../../utils/searchMovies';
 import SearchResults from './SearchResults/SearchResults';
 
-const Movies = ({ savedMovies, onSaveMovie, onDeleteMovie}) => {
+const Movies = ({  onSaveMovie, onDeleteMovie, savedMovies,}) => {
   const defaultSearchText = localStorage.getItem('searchText') || '';
   const defaultAreShortMoviesSelected = JSON.parse(localStorage.getItem('areShortMoviesSelected')) || false;
   const defaultFoundMovies = JSON.parse(localStorage.getItem('foundMovies')) || [];

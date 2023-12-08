@@ -26,12 +26,12 @@ const MoviesCard = ({movie, onDeleteMovie}) => {
           rel='noreferrer'
           target='_blank'
           className='movies-card__link'>
-            <img className='movies-card__img' src={movie.image} alt={movie.nameRu}/>
+            <img className='movies-card__img' src={movie.image} alt={movie.nameRU}/>
           </a>
         </div>
         <div className='movies-card__container'>
           <div className='movies-card__title-container'>
-            <h3 className='movies-card__title'>{movie.nameRu}</h3>
+            <h3 className='movies-card__title'>{movie.nameRU}</h3>
             <p className='movies-card__duration movies-card__duration_type-box'>{formatDuratonMovie(movie.duration)}</p>
           </div>
         

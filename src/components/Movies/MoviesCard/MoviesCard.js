@@ -1,16 +1,9 @@
 import React from 'react';
 import './MoviesCard.css';
 import { useState } from 'react';
-// import { useLocation } from 'react-router-dom';
-// import img from '../../../images/germany-film.svg'
 import { formatDuratonMovie } from '../../../utils/formatDurationMovie';
 
-const MoviesCard = ({movie, savedMovies, onSaveButtonClick}) => {
-  // const location = useLocation().pathname
-  // const [isSavedMovie, setSavedMovie] = useState(false)
-  // const saveButton = (
-  //   `movies-card__save-button  ${savedMovies ? "movies-card__save-button_active": ""}`
-  // );
+const MoviesCard = ({ movie, savedMovies, onSaveButtonClick }) => {
   const [isLoading, setIsLoading] = useState(false);
   let isSaved;
   if (savedMovies) {
@@ -36,15 +29,14 @@ const MoviesCard = ({movie, savedMovies, onSaveButtonClick}) => {
           rel='noreferrer'
           target='_blank'
           className='movies-card__link'>
-            <img className='movies-card__img' src={movie.image} alt={movie.nameRu}/>
+            <img className='movies-card__img' src={movie.image} alt={movie.nameRU}/>
           </a>
         </div>
         <div className='movies-card__container'>
           <div className='movies-card__title-container'>
-            <h3 className='movies-card__title'>{movie.nameRu}</h3>
+            <h3 className='movies-card__title'>{movie.nameRU}</h3>
             <p className='movies-card__duration movies-card__duration_type-box'>{formatDuratonMovie(movie.duration)}</p>
           </div>
-        
         </div>
     </li>
   );

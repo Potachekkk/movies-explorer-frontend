@@ -109,15 +109,16 @@ const MoviesCardList = ({ filteredMovies, savedMovies, onSaveMovie, onDeleteMovi
                         }
                       )}
                   </ul>
-                  <div className='movies-card__button-container'>
+                  <section className='more section'>
                   {filteredMovies.length > shownMoviesQuantity ? (
-                                    <button onClick={loadMoreMovies} type="button" className="cards__loading-button">Ещё</button>
+                                    <button onClick={loadMoreMovies} type="button" className="more__button">Ещё</button>
                                 ) : ''}
-                  </div>
+                  </section>
                   </>
                 )}
                 </>
             )}
+            
             {/* {isNotFound && !isLoading && <EmptyResults title={NOTHING_FOUND} />} */}
             {/* {isRequestError && !isLoading && <EmptyResults title={MOVIES_SERVER_ERROR} />}   */}
     </section>

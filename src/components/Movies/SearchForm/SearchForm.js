@@ -2,6 +2,8 @@ import React, { useEffect, useState} from 'react';
 import './SearchForm.css';
 import { useLocation } from 'react-router-dom';
 // import { KEY_WORD_ERROR } from '../../../utils/constant';
+import CheckBox from '../../CheckBox/CheckBox';
+
 
 const SearchForm = ({ onSearch, onFilter, isCheckboxActive }) => {
   const currentLocation = useLocation().pathname;
@@ -49,22 +51,8 @@ const SearchForm = ({ onSearch, onFilter, isCheckboxActive }) => {
           <button type='submit' className='search__button' ></button>
           </div>
       <span className='search__input-error'>{isError}</span>
-      <label className='search__box'>
-        <input 
-          type='checkbox' 
-          name="filter-checkbox" 
-          id='short-films' 
-          checked={isCheckboxActive}
-          onChange={changeSearch}
-          className='search__checkbox'
-          value="true"
-          onFilter={onFilter}
-        />
-        <span className='search__checkbox-element'></span>
-        <span className='search__checkbox-title'>Короткометражки</span>
-      </label>
         </form>
-      
+        <CheckBox onFilter={onFilter} isActive={isCheckboxActive} />
       <div className='search__line'></div>
     </section>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthMain from '../AuthMain/AuthMain';
 
-const AuthEmail = () => {
+const AuthEmail = ({ ...validationParams }) => {
   return (
     <AuthMain
       labelText='E-mail'
@@ -9,6 +9,7 @@ const AuthEmail = () => {
       name='email'
       placeholder='Введите почту'
       required
+      { ...validationParams }
     />
   );
 };

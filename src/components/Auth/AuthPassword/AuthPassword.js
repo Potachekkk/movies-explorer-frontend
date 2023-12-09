@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthMain from '../AuthMain/AuthMain';
 
-const AuthPassword = () => {
+const AuthPassword = ({ ...validationParams }) => {
   return (
     <AuthMain
       labelText='Пароль'
@@ -9,6 +9,7 @@ const AuthPassword = () => {
       name='password'
       placeholder='Введите пароль'
       required
+      { ...validationParams }
     />
   );
 };

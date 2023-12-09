@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthMain from '../AuthMain/AuthMain';
 
-const AuthName = () => {
+const AuthName = ({ ...validationParams }) => {
   return (
     <AuthMain
       labelText='Имя'
@@ -10,7 +10,9 @@ const AuthName = () => {
       placeholder='Введите имя'
       minLength='2'
       maxLength='30'
+      pattern='[A-Za-zА-Яа-яЁё\s-]+'
       required
+      { ...validationParams }
     />
   );
 };

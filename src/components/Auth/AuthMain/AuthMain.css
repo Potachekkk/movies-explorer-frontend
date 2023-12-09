@@ -47,6 +47,9 @@
     color: #EE3465;
 }
 
+.auth__main_incorrect {
+    color: #EE3465;
+  }
 .auth__main-error_active {
     display: block;
     visibility: hidden;

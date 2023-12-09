@@ -15,6 +15,7 @@ import * as api from '../../utils/MainApi';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 import MoviesPage from '../MoviesPage/MoviesPage';
 import SavedMoviesPage from '../SavedMoviesPage/SavedMoviesPage';
+import Logged from '../Logged/Logged';
 
 
 const App = () => {
@@ -71,6 +72,11 @@ const App = () => {
         });
     }
   }
+
+  const handleLogin = (token) => {
+    localStorage.setItem('token', token);
+    checkToken();
+  };
 
   function saveMovie(movieCard) {
     const currentToken = localStorage.getItem('token');
@@ -129,8 +135,14 @@ const App = () => {
             onDeleteMovie={deleteMovie}
           />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/signup' element={<Register />} />
-          <Route path='/signin' element={<Login />} />
+          <Route path='/signup' element={<Logged
+            element={Register}
+            onLogin={handleLogin}
+            />} />
+          <Route path='/signin' element={<Logged
+            element={Login}
+            onLogin={handleLogin}
+            />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
         <Footer />

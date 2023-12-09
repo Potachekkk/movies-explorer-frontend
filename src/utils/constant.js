@@ -18,12 +18,22 @@ const CARDS_QUANTITY_MOBILE = 5;
 const CARDS_MORE_DECKTOP = 3;
 const CARDS_MORE_MOBILE = 2;
 
-
+const REQUEST_ERROR_TEXTS = {
+    SIGNIN_INCORRECT_LOGIN_OR_PASSWORD: 'Вы ввели неправильный логин или пароль.',
+    SIGNIN_TOKEN_NOT_TRANSFERED: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
+    SIGNIN_INCORRECT_TOKEN: 'При авторизации произошла ошибка. Переданный токен некорректен.',
+    SIGNIN_ERROR: 'При авторизации произошла ошибка.',
+    USER_ALREADY_EXISTS: 'Пользователь с таким email уже существует.',
+    SIGNUP_ERROR: 'При регистрации пользователя произошла ошибка.',
+    PROFILE_UPDATE_ERROR: 'При обновлении профиля произошла ошибка.',
+    INTERNAL_SERVER_ERROR: 'На сервере произошла ошибка.',
+  };
 const NOTHING_FOUND = "Ничего не найдено";
 const KEY_WORD_ERROR = "Нужно ввести ключевое слово";
 const MOVIES_SERVER_ERROR ="Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз";
 
 export {
+    REQUEST_ERROR_TEXTS,
     NOTHING_FOUND,
     KEY_WORD_ERROR,
     MOVIES_SERVER_ERROR,

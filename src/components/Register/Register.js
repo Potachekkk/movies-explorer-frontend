@@ -11,57 +11,16 @@ import * as api from '../../utils/MainApi';
 import { REQUEST_ERROR_TEXTS } from '../../utils/constant';
 
 
-const Register = ({ onLogin }) => {
-  const loggedIn = useContext(LoggedInContext);
-  const location = useLocation();
-
-  const [requestError, setRequestError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [values, errors, isValid, handleChange] = useForm();
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-
-    setRequestError('');
-    setIsLoading(true);
-
-    api.register(values)
-      .then(() => {
-        const { email, password } = values;
-
-        return api.authorize({ email, password })
-          .then(({ token }) => {
-            if (token) {
-              onLogin(token);
-            }
-          });
-      })
-      .catch((err) => {
-        // let message;
-        
-        // if (err.split(' ')[1] === '409') {
-        //   message = REQUEST_ERROR_TEXTS.USER_ALREADY_EXISTS;
-        // }
-        // else if (err.split(' ')[1] === '500') {
-        //   message = REQUEST_ERROR_TEXTS.INTERNAL_SERVER_ERROR;
-        // }
-        // else {
-        //   message = REQUEST_ERROR_TEXTS.SIGNUP_ERROR;
-        // }
-        
-        // setRequestError(message);
-        console.log(err)
-      });
-
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    if (loggedIn && location.pathname === '/signup') {
-      return <Navigate to='/movies' />;
-    }
-  }, [loggedIn]);
+const Register = ({ onRegister, isLoading }) => {
+  const { enteredValues, errors, handleChange, isFormValid } = useForm();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onRegister({
+      name: enteredValues.name,
+      email: enteredValues.email,
+      password: enteredValues.password,
+    });
+  }
 
 
   return (
@@ -71,25 +30,24 @@ const Register = ({ onLogin }) => {
       questionText='Уже зарегистрированы?'
       linkRoute='/signin'
       linkText='Войти'
-      isValid={isValid}
+      isValid={isFormValid}
       onSubmit={handleSubmit}
       isLoading={isLoading}
-      requestError={requestError}
     >
       <AuthName
       onChange={handleChange}
       isLoading={isLoading}
-      value={values.name || ''}
+      value={enteredValues.name || ''}
       error={errors.name} />
       <AuthEmail 
       onChange={handleChange}
       isLoading={isLoading}
-      value={values.email || ''}
+      value={enteredValues.email || ''}
       error={errors.email}/>
       <AuthPassword
       onChange={handleChange}
       isLoading={isLoading}
-      value={values.password || ''}
+      value={enteredValues.password || ''}
       error={errors.password}/>
     </Auth>
   );

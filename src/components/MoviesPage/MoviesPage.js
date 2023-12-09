@@ -1,5 +1,5 @@
 import React from 'react';
-import Movies from "../Movies/Movies";
+import Movies from "../../components/Movies/Movies"
 
 const MoviesPage = ({ savedMovies, onSaveMovie, onDeleteMovie, searchQuery, filteredMovies, isCheckboxActive, onSearch, onFilter, isShortsActive }) => {
     return (

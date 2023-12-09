@@ -16,8 +16,7 @@ children,
   requestError}) => {
     return (
         <main className="auth section">
-            <form name="auth" onSubmit={onSubmit} className="auth__form">
-                
+            <form name="auth" onSubmit={onSubmit} className="auth__form" noValidate>
                     <div className="auth__header">
                         <Link to='/' className="auth__logo-link">
                             <img src={logo} alt='Логотип'className="auth__logo-image"/>
@@ -39,7 +38,6 @@ children,
                             </Link>
                         </div>
                     </div>
-
             </form>
         </main>
     )

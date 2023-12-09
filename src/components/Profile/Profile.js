@@ -1,45 +1,160 @@
-import React from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import './Profile.css';
-import { useState } from 'react';
+
 import Header from '../Header/Header';
+import { CurrentUserContext } from '../context/CurrentUserContext';
+import useForm from '../FormValidator/FormValidator';
+import { USER_NAME_REGEX } from '../../utils/constant';
 
 
-const Profile = () => {
-  const [isEditing, setIsEditing] = useState(false);
+const Profile = ({ logout, onUpdate, editSubmitTitle, isLoading }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(true);
+    const currentUser = useContext(CurrentUserContext);
+    const { enteredValues, errors, handleChange, isFormValid, resetForm } = useForm();
 
-  const handleEditButtonClick = () => {
-    setIsEditing(true);
-  };
+    const [name, setName] = useState(currentUser.name);
+    const [email, setEmail] = useState(currentUser.email);
+    const [isEqualValues, setEqualValues] = useState(true);
 
-  const handleSaveButtonClick = () => {
-    setIsEditing(false);
-  };
+    const handleEditButtonClick = () => {
+      setIsEditing(true);
+    };
+  
+    // const handleSaveButtonClick = () => {
+    //   setIsEditing(false);
+    // };
+
+    const handleSignOutButtonClick = () => {
+      logout();
+    };
+
+    useEffect(() => {
+        if (currentUser) {
+            resetForm(currentUser);
+        }
+    }, [currentUser, resetForm]);
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        let newUserName = "";
+        let newUserEmail = "";
+
+        enteredValues.name ? newUserName = enteredValues.name : newUserName = currentUser.name;
+        enteredValues.email ? newUserEmail = enteredValues.email : newUserEmail = currentUser.email;
+
+        if (!isEqualValues) {
+            onUpdate({
+                name: newUserName,
+                email: newUserEmail,
+            });
+            resetForm();
+        }
+
+        setIsDisabled(true);
+    }
+
+    useEffect(() => {
+        let name = true;
+        let email = true;
+        if (enteredValues.name) {
+            name = enteredValues.name === currentUser.name;
+        }
+        if (enteredValues.email) {
+            email = enteredValues.email === currentUser.email;
+        }
+        setEqualValues(name && email);
+    }, [enteredValues.name, enteredValues.email]);
+
+    useEffect(() => {
+        if (!isLoading) {
+            setName(currentUser.name);
+            setEmail(currentUser.email);
+        }
+    }, [currentUser, isLoading]);
+
+    useEffect(() => {
+        if (enteredValues.name) {
+            setName(enteredValues.name);
+        }
+        if (enteredValues.email) {
+            setEmail(enteredValues.email);
+        }
+    }, [enteredValues.name, enteredValues.email]);
+
+
+    const profileLabelClassName = (
+        `profile__input-label ${isDisabled ? "profile__input-label_disabled" : ""}`
+    );
+
+    const profileSubmitButtonClassName = (
+        `profile__submit-button submit-button ${isDisabled ? "profile__submit-button_disabled" : ""} ${!isFormValid || isLoading || isEqualValues ? "submit-button_inactive" : ""}`
+    );
+
+    // function handleEditButtonClick() {
+    //     enteredValues.name = currentUser.name;
+    //     enteredValues.email = currentUser.email;
+    //     setIsDisabled(!isDisabled);
+    // }
 
   return (
     <main className='profile section'>
       <div className='profile__container'>
         <div className='profile__column'>
-          <h1 className='profile__title'>Привет, Виталий!</h1>
-          <form name='profile'className='profile__form'>
+          <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
+          <form name='profile' className='profile__form' onSubmit={handleSubmit} noValidate>
             <label className='profile__input-container'>
-              <span className='profile__input-label'>Имя</span>
-              <input className='profile__input' name='name' type='text' placeholder='Введите имя' minLength='2' maxLength='30' required />
-              <span className='profile__input-error'>Ошибка</span>
+              <span className={profileLabelClassName} htmlFor="name">Имя</span>
+              <input 
+              className={`profile__input ${isDisabled || isLoading ? "profile__input_disabled" : ""} ${errors.name ? "profile__input_type_error" : ""}`}
+              onChange={handleChange}
+              pattern={USER_NAME_REGEX}
+              required
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Имя" 
+              value={`${enteredValues.name ? enteredValues.name : name}`}
+              minLength="2"
+              maxLength="30"
+              />
+              <span id="name-error"
+                className={`profile__input-error ${errors.name ? "profile__input-error_active" : ""}`}
+              >{errors.name}</span>
             </label>
             <label className='profile__input-container'>
-              <span className='profile__input-label'>E-mail</span>
-               <input className='profile__input profile__input_type_email' name='email' type='email' placeholder='Введите почту' required />
-              <span className='profile__input-error'>Ошибка</span>
+              <span className={profileLabelClassName} htmlFor="email">E-mail</span>
+               <input 
+                className={`profile__input ${isDisabled || isLoading ? "profile__input_disabled" : ""} ${errors.name ? "profile__input_type_error" : ""}`}
+                onChange={handleChange}
+                pattern="^\S+@\S+\.\S+$"
+                required
+                id="email"
+                name="email"
+                type="email"
+                placeholder="E-mail"
+                value={`${enteredValues.email ? enteredValues.email : email}`}
+                minLength="2"
+                maxLength="30" />
+              <span id="email-error" className={`profile__input-error ${errors.email ? "profile__input-error_active" : ""}`}
+              >{errors.email}</span>
             </label>
           </form>
         </div>
         <div className='profile__footer'>
         {!isEditing ? (<>
             <button type='button' onClick={handleEditButtonClick} className='profile__button profile__edit-button'>Редактировать</button>
-            <button type='button' className='profile__button profile__sign-out-button'>Выйти из аккаунта</button>
+            <button type='button' onClick={handleSignOutButtonClick} className='profile__button profile__sign-out-button'>Выйти из аккаунта</button>
           </>) : (<>
             <span className='profile__edit-error'>При обновлении профиля произошла ошибка.</span>
-            <button type='submit' onClick={handleSaveButtonClick} className='profile__button profile__save-button profile__save-button_inactive' disabled>Сохранить</button>
+            <button 
+              type='submit'
+              className={`profile__button profile__save-button ${!isFormValid || isLoading ? 'profile__save-button_inactive' : 'link'}`} 
+              disabled={!isFormValid || isLoading}
+            >
+              Сохранить
+            </button>
           </>)}
         </div>
       </div>

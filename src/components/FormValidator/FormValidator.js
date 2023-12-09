@@ -1,35 +1,43 @@
-import { useState } from 'react';
-import isEmail from 'validator/lib/isEmail';
+import { useState, useCallback } from 'react';
 
-const validateEmail = (value) => {
-  const ERROR_MSG = 'Неверный формат электронной почты.';
-  return isEmail(value) ? '' : ERROR_MSG;
-}
+const useForm = () => {
+    const [enteredValues, setEnteredValues] = useState({});
+    const [errors, setErrors] = useState({});
+    const [isFormValid, setIsFormValid] = useState(false);
 
-const useForm = (initialValues = {}, initialIsValid = false) => {
-  const [values, setValues] = useState(initialValues);
-  const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState(initialIsValid);
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
 
-  const handleChange = (evt) => {
-    const input = evt.target;
-    const name = input.name;
-    const value = input.type === 'checkbox' ? input.checked : input.value;
+        setEnteredValues({
+            ...enteredValues,
+            [name]: value,
+        });
 
-    switch (input.type) {
-      case 'email':
-        const errorMessage = validateEmail(value);
-        setErrors((errors) => ({ ...errors, [name]: errorMessage }));
-        input.setCustomValidity(errorMessage);
-        break;
-      default:
-        setErrors((errors) => ({ ...errors, [name]: input.validationMessage }));
-    }
-    setValues((values) => ({ ...values, [name]: value }));
-    setIsValid(input.closest('form').checkValidity());
-  }
+        setErrors({
+            ...errors,
+            [name]: event.target.validationMessage,
+        });
 
-  return [values, errors, isValid, handleChange];
+        setIsFormValid(event.target.closest('form').checkValidity());
+    };
+
+    const resetForm = useCallback(
+        (newValues = {}, newErrors = {}, newIsFormValid = false) => {
+            setEnteredValues(newValues);
+            setErrors(newErrors);
+            setIsFormValid(newIsFormValid);
+        },
+        [setEnteredValues, setErrors, setIsFormValid],
+    );
+
+    return {
+        enteredValues,
+        errors,
+        handleChange,
+        isFormValid,
+        resetForm,
+    };
 };
 
 export default useForm;

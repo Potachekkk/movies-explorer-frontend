@@ -15,6 +15,7 @@ import * as api from '../../utils/MainApi';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 import MoviesPage from '../MoviesPage/MoviesPage';
 import SavedMoviesPage from '../SavedMoviesPage/SavedMoviesPage';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Logged from '../Logged/Logged';
 
 
@@ -58,13 +59,47 @@ const App = () => {
     }
   }, [loggedIn]);
 
+  function handleRegistration({ name, email, password }) {
+    setIsLoading(true);
+    api.register(name, email, password)
+      .then((res) => {
+        if (res) {
+          navigate('/signin', { replace: true });
+          handleLogin({ email, password });
+        }
+      })
+      .catch(() => {
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  function handleLogin({ email, password }) {
+    setIsLoading(true);
+    api.authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem('token', data.token)
+          setLoggedIn(true);
+          navigate('/movies', { replace: true });
+        }
+      })
+      .catch((err) => {
+        setIsInfoPopupOpen(true);
+        console.log(`Ошибка при входе в систему`);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
   function checkToken() {
     const currentToken = localStorage.getItem('token');
     if (currentToken) {
       api.getContent(currentToken).then((res) => {
         if (res) {
           setLoggedIn(true);
-          navigate(pathLocation);
+          navigate('/movies');
         }
       })
         .catch(() => {
@@ -72,11 +107,6 @@ const App = () => {
         });
     }
   }
-
-  const handleLogin = (token) => {
-    localStorage.setItem('token', token);
-    checkToken();
-  };
 
   function saveMovie(movieCard) {
     const currentToken = localStorage.getItem('token');
@@ -105,11 +135,17 @@ const App = () => {
       .catch((err) => {
 
         console.log(`Ошибка при удалении карточки.`)
-
-        setIsInfoPopupOpen(true);
       });
   }
-
+  function handleLogout() {
+    setLoggedIn(false);
+    localStorage.removeItem('movies');
+    localStorage.removeItem('movieSearch');
+    localStorage.removeItem('shortMovies');
+    localStorage.removeItem('allMovies');
+    localStorage.removeItem('token');
+    navigate('/', { replace: true });
+  }
 
   
   return (
@@ -120,25 +156,33 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/movies' element={
+            <ProtectedRoute>
           <Movies
             element={MoviesPage}
             loggedIn={loggedIn}
             savedMovies={savedMovies}
             onSaveMovie={saveMovie}
             onDeleteMovie={deleteMovie}
-           />} />
+           />
+           </ProtectedRoute>} />
           <Route path='/saved-movies' element={
+            <ProtectedRoute>
           <SavedMovies
             element={SavedMoviesPage}
             loggedIn={loggedIn}
             savedMovies={savedMovies}
             onDeleteMovie={deleteMovie}
-          />} />
-          <Route path='/profile' element={<Profile />} />
+          />
+          </ProtectedRoute>} />
+          <Route path='/profile' element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>} />
           <Route path='/signup' element={<Logged
             element={Register}
-            onLogin={handleLogin}
-            />} />
+            onRegister={handleRegistration}
+            />
+            } />
           <Route path='/signin' element={<Logged
             element={Login}
             onLogin={handleLogin}

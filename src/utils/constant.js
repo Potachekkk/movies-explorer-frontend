@@ -32,7 +32,10 @@ const NOTHING_FOUND = "Ничего не найдено";
 const KEY_WORD_ERROR = "Нужно ввести ключевое слово";
 const MOVIES_SERVER_ERROR ="Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз";
 
+const USER_NAME_REGEX = "^[A-Za-zА-Яа-яЁё\\s\\-]+$";
+
 export {
+    USER_NAME_REGEX,
     REQUEST_ERROR_TEXTS,
     NOTHING_FOUND,
     KEY_WORD_ERROR,

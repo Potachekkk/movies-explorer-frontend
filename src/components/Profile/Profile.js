@@ -1,33 +1,18 @@
 import React, { useEffect, useContext, useState } from 'react';
 import './Profile.css';
-
-import Header from '../Header/Header';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 import useForm from '../FormValidator/FormValidator';
 import { USER_NAME_REGEX } from '../../utils/constant';
 
-
-const Profile = ({ logout, onUpdate, editSubmitTitle, isLoading }) => {
-    const [isEditing, setIsEditing] = useState(false);
-    const [isDisabled, setIsDisabled] = useState(true);
+const Profile = ({ logOut, onUpdate, editSubmitTitle, isLoading }) => {
+  const [isDisabled, setIsDisabled] = useState(true);
     const currentUser = useContext(CurrentUserContext);
+
     const { enteredValues, errors, handleChange, isFormValid, resetForm } = useForm();
 
     const [name, setName] = useState(currentUser.name);
     const [email, setEmail] = useState(currentUser.email);
     const [isEqualValues, setEqualValues] = useState(true);
-
-    const handleEditButtonClick = () => {
-      setIsEditing(true);
-    };
-  
-    // const handleSaveButtonClick = () => {
-    //   setIsEditing(false);
-    // };
-
-    const handleSignOutButtonClick = () => {
-      logout();
-    };
 
     useEffect(() => {
         if (currentUser) {
@@ -85,18 +70,23 @@ const Profile = ({ logout, onUpdate, editSubmitTitle, isLoading }) => {
 
 
     const profileLabelClassName = (
-        `profile__input-label ${isDisabled ? "profile__input-label_disabled" : ""}`
-    );
+      `profile__input-label ${isDisabled ? "profile__input-label_disabled" : ""}`
+  );
 
     const profileSubmitButtonClassName = (
-        `profile__submit-button submit-button ${isDisabled ? "profile__submit-button_disabled" : ""} ${!isFormValid || isLoading || isEqualValues ? "submit-button_inactive" : ""}`
+        `profile__button profile__save-button ${isDisabled ? "profile__save-button_disabled" : ""} ${!isFormValid || isLoading || isEqualValues ? "'profile__save-button_inactive'" : ""}`
     );
 
-    // function handleEditButtonClick() {
-    //     enteredValues.name = currentUser.name;
-    //     enteredValues.email = currentUser.email;
-    //     setIsDisabled(!isDisabled);
-    // }
+    const profileLogOutButtonClassName = (
+      `profile__button profile__sign-out-button ${!isDisabled ? "profile__sign-out-button_disabled" : ""}`
+    )
+
+    function handleEditButtonClick() {
+        enteredValues.name = currentUser.name;
+        enteredValues.email = currentUser.email;
+        setIsDisabled(!isDisabled);
+    }
+    
 
   return (
     <main className='profile section'>
@@ -126,7 +116,7 @@ const Profile = ({ logout, onUpdate, editSubmitTitle, isLoading }) => {
             <label className='profile__input-container'>
               <span className={profileLabelClassName} htmlFor="email">E-mail</span>
                <input 
-                className={`profile__input ${isDisabled || isLoading ? "profile__input_disabled" : ""} ${errors.name ? "profile__input_type_error" : ""}`}
+                className={`profile__input profile__input_type_email ${isDisabled || isLoading ? "profile__input_disabled" : ""} ${errors.name ? "profile__input_type_error" : ""}`}
                 onChange={handleChange}
                 pattern="^\S+@\S+\.\S+$"
                 required
@@ -140,22 +130,26 @@ const Profile = ({ logout, onUpdate, editSubmitTitle, isLoading }) => {
               <span id="email-error" className={`profile__input-error ${errors.email ? "profile__input-error_active" : ""}`}
               >{errors.email}</span>
             </label>
+            <button
+              className={profileSubmitButtonClassName}
+              type="submit"
+              disabled={!isFormValid || isLoading || isEqualValues ? true : false}
+          >{editSubmitTitle}</button>
           </form>
         </div>
+        
         <div className='profile__footer'>
-        {!isEditing ? (<>
-            <button type='button' onClick={handleEditButtonClick} className='profile__button profile__edit-button'>Редактировать</button>
-            <button type='button' onClick={handleSignOutButtonClick} className='profile__button profile__sign-out-button'>Выйти из аккаунта</button>
-          </>) : (<>
-            <span className='profile__edit-error'>При обновлении профиля произошла ошибка.</span>
-            <button 
-              type='submit'
-              className={`profile__button profile__save-button ${!isFormValid || isLoading ? 'profile__save-button_inactive' : 'link'}`} 
-              disabled={!isFormValid || isLoading}
-            >
-              Сохранить
-            </button>
-          </>)}
+      <button
+          className="profile__button profile__edit-button"
+          type="button"
+          onClick={handleEditButtonClick}
+      >{isDisabled ? "Редактировать" : "Отменить"}</button>
+      <button
+          onClick={logOut}
+          className={profileLogOutButtonClassName}
+          type="button"
+          aria-label="Кнопка выхода из аккаунта"
+      >Выйти из аккаунта</button>
         </div>
       </div>
     </main>

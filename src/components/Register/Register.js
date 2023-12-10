@@ -1,14 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import './Register.css';
 import Auth from '../Auth/Auth';
 import AuthName from '../Auth/AuthName/AuthName';
 import AuthEmail from '../Auth/AuthEmail/AuthEmail';
 import AuthPassword from '../Auth/AuthPassword/AuthPassword';
 import useForm from '../FormValidator/FormValidator';
-import { Navigate, useLocation } from 'react-router-dom';
-import { LoggedInContext } from '../context/LoggedInContext';
-import * as api from '../../utils/MainApi';
-import { REQUEST_ERROR_TEXTS } from '../../utils/constant';
 
 
 const Register = ({ onRegister, isLoading }) => {

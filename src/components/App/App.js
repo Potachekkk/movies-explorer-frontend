@@ -17,7 +17,10 @@ import MoviesPage from '../MoviesPage/MoviesPage';
 import SavedMoviesPage from '../SavedMoviesPage/SavedMoviesPage';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Logged from '../Logged/Logged';
-
+import { REQUEST_TEXTS } from '../../utils/constant';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import SuccessIcon from '../../images/success_icon.svg';
+import FailIcon from '../../images/fail_icon.svg';
 
 const App = () => {
   // хуки навигации
@@ -38,7 +41,7 @@ const App = () => {
   const [savedMovies, setSavedMovies] = useState([]);
   // текст на сабмит-кнопке в профиле пользователя
   const [editSubmitTitle, setEditSubmitTitle] = useState("Сохранить");
-
+  const [infoImg, setInfoImg] = useState(SuccessIcon);
   // проверка токена каждый раз, когда пользователь открывает страницу
   useEffect(() => {
     checkToken();
@@ -64,13 +67,17 @@ const App = () => {
     api.register(name, email, password)
       .then((res) => {
         if (res) {
-          navigate('/signin', { replace: true });
+          setInfoImg(SuccessIcon);
+          setInfoTitle(REQUEST_TEXTS.REG_SUCCESS_MESSAGE)
           handleLogin({ email, password });
         }
       })
       .catch(() => {
+        setInfoTitle(REQUEST_TEXTS.REG_UNSUCCESS_MESSAGE);
+        setInfoImg(FailIcon);
       })
       .finally(() => {
+        setIsInfoPopupOpen(true);
         setIsLoading(false);
       });
   }
@@ -86,12 +93,22 @@ const App = () => {
         }
       })
       .catch((err) => {
+        handleUnauthorized(err);
+        setInfoTitle(REQUEST_TEXTS.LOGIN_UNSUCCESS_MESSAGE);
+        setInfoImg(FailIcon);
         setIsInfoPopupOpen(true);
+        navigate('/signin', { replace: true });
         console.log(`Ошибка при входе в систему`);
       })
       .finally(() => {
         setIsLoading(false);
       });
+  }
+
+  function handleUnauthorized(err) {
+    if (err === 'Ошибка: 401') {
+      handleLogout();
+    }
   }
   function checkToken() {
     const currentToken = localStorage.getItem('token');
@@ -106,6 +123,31 @@ const App = () => {
           console.log(`Ошибка при проверке токена`);
         });
     }
+  }
+
+  function handleUpdateUser(userData) {
+    const currentToken = localStorage.getItem('token');
+    setIsLoading(true);
+    setEditSubmitTitle("Сохраняем...");
+    const name = userData.name;
+    const email = userData.email;
+    api.editUserInfo(name, email, currentToken)
+      .then((res) => {
+        setCurrentUser(res);
+        setInfoTitle(REQUEST_TEXTS.USER_INFO_SUCCESS_MESSAGE);
+        setInfoImg(SuccessIcon);
+      })
+      .catch((err) => {
+        handleUnauthorized(err);
+        setInfoTitle(REQUEST_TEXTS.USER_INFO_UNSUCCESS_MESSAGE);
+        setInfoImg(FailIcon);
+        console.log(`Ошибка при обновлении данных.`)
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setIsInfoPopupOpen(true);
+        setEditSubmitTitle("Сохранить")
+      });
   }
 
   function saveMovie(movieCard) {
@@ -147,6 +189,23 @@ const App = () => {
     navigate('/', { replace: true });
   }
 
+  function closeAllPopups() {
+    setIsInfoPopupOpen(false);
+  }
+
+  function handleEscClose(e) {
+    if (e.key === 'Escape') {
+      closeAllPopups();
+    }
+  }
+
+  // закрытие попапа при клике на оверлей
+  function handleOverlay(e) {
+    if (!e.target.closest('.popup-container')) {
+      closeAllPopups();
+    }
+  }
+
   
   return (
     <LoggedInContext.Provider value={loggedIn}>
@@ -176,20 +235,34 @@ const App = () => {
           </ProtectedRoute>} />
           <Route path='/profile' element={
           <ProtectedRoute>
-            <Profile />
+            <Profile
+            logout={handleLogout}
+            onUpdate={handleUpdateUser}
+            editSubmitTitle={editSubmitTitle}
+            isLoading={isLoading}
+           />
           </ProtectedRoute>} />
           <Route path='/signup' element={<Logged
             element={Register}
+            loggedIn={loggedIn}
             onRegister={handleRegistration}
             />
             } />
           <Route path='/signin' element={<Logged
             element={Login}
+            loggedIn={loggedIn}
             onLogin={handleLogin}
             />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
         <Footer />
+        <InfoTooltip
+        isOpen={isInfoPopupOpen}
+        onClose={closeAllPopups}
+        infoTitle={infoTitle}
+        infoImg={infoImg}
+        onEscClick={handleEscClose}
+        onOverlayClick={handleOverlay} />
       </div>
       </CurrentUserContext.Provider>
     </LoggedInContext.Provider>

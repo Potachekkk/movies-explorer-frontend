@@ -14,7 +14,7 @@
     line-height: 12.1px;
     font-weight: 400;
     color: #8B8B8B;
-    margin: 0 0 10px;
+    margin: 20px 0 10px;
 }
 
 
@@ -39,7 +39,7 @@
 }
 
 .auth__main-error {
-    display: none;
+    display: block;
     margin: 10px auto 0 0;
     font-weight: 400;
     font-size: 10px;

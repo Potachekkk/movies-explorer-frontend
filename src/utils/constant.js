@@ -18,6 +18,18 @@ const CARDS_QUANTITY_MOBILE = 5;
 const CARDS_MORE_DECKTOP = 3;
 const CARDS_MORE_MOBILE = 2;
 
+const REQUEST_TEXTS = {
+    REG_SUCCESS_MESSAGE: "Вы успешно зарегистрировались!",
+    REG_UNSUCCESS_MESSAGE: "Не получилось зарегистрироваться! Попробуйте ещё раз",
+    LOGIN_UNSUCCESS_MESSAGE: "Не получилось войти! Попробуйте ещё раз.",
+    AUTH_UNSUCCESS_MESSAGE: "Необходима авторизация!",
+    USER_INFO_SUCCESS_MESSAGE: "Данные успешно обновлены!",
+    USER_INFO_UNSUCCESS_MESSAGE: "Ошибка при обновлении данных! Попробуйте ещё раз.",
+    MOVIE_SAVE_UNSUCCESS_MESSAGE: "Фильм не сохранился! Попробуйте ещё раз",
+    MOVIE_DELETE_UNSUCCESS_MESSAGE: "Фильм не удалён! Попробуйте ещё раз",
+}
+
+
 const REQUEST_ERROR_TEXTS = {
     SIGNIN_INCORRECT_LOGIN_OR_PASSWORD: 'Вы ввели неправильный логин или пароль.',
     SIGNIN_TOKEN_NOT_TRANSFERED: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
@@ -35,6 +47,7 @@ const MOVIES_SERVER_ERROR ="Во время запроса произошла о
 const USER_NAME_REGEX = "^[A-Za-zА-Яа-яЁё\\s\\-]+$";
 
 export {
+    REQUEST_TEXTS,
     USER_NAME_REGEX,
     REQUEST_ERROR_TEXTS,
     NOTHING_FOUND,

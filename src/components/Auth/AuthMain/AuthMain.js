@@ -14,7 +14,7 @@ const AuthMain = ({
       className={`auth__main ${error ? 'auth__main_incorrect' : ''}`}
       disabled={isLoading}
       {...inputAttributes} />
-      <span className='auth__main-error auth__main-error_active'>{error}</span>
+      <span className='auth__main-error'>{error}</span>
     </label>
   );
 };

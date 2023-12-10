@@ -27,7 +27,7 @@ children,
                     <div className="auth__footer">
                         <span className="auth__error-text auth__error-text_active">{requestError}</span>
                         <button type="submit" 
-                            className={`auth__submit-button ${isValid || isLoading ? 'auth__submit-button_inactive' : 'link'}`}
+                            className={`auth__submit-button ${!isValid || isLoading ? 'auth__submit-button_inactive' : 'link'}`}
                                 disabled={!isValid || isLoading}
                         >
                             {submitButtonText}</button>

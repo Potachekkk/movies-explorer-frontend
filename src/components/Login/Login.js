@@ -1,13 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import './Login.css';
 import Auth from '../Auth/Auth';
 import AuthEmail from '../Auth/AuthEmail/AuthEmail';
 import AuthPassword from '../Auth/AuthPassword/AuthPassword';
-import * as api from '../../utils/MainApi';
-import { LoggedInContext } from '../context/LoggedInContext';
-import { Navigate, useLocation } from 'react-router-dom';
 import useForm from '../FormValidator/FormValidator';
-import { REQUEST_ERROR_TEXTS } from '../../utils/constant';
 
 const Login = ({ onLogin, isLoading }) => {
   const { enteredValues, errors, handleChange, isFormValid } = useForm();

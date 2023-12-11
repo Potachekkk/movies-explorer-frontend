@@ -10,7 +10,6 @@ const AuthName = ({ ...validationParams }) => {
       placeholder="Введите имя"
       minLength="2"
       maxLength="30"
-      pattern="[A-Za-zА-Яа-яЁё\s-]+"
       required
       {...validationParams}
     />

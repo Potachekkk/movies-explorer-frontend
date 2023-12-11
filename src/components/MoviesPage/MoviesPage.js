@@ -1,8 +1,18 @@
-import React from 'react';
-import Movies from "../../components/Movies/Movies"
+import React from "react";
+import Movies from "../../components/Movies/Movies";
 
-const MoviesPage = ({ savedMovies, onSaveMovie, onDeleteMovie, searchQuery, filteredMovies, isCheckboxActive, onSearch, onFilter, isShortsActive }) => {
-    return (
+const MoviesPage = ({
+  savedMovies,
+  onSaveMovie,
+  onDeleteMovie,
+  searchQuery,
+  filteredMovies,
+  isCheckboxActive,
+  onSearch,
+  onFilter,
+  isShortsActive,
+}) => {
+  return (
     <>
       <Movies
         savedMovies={savedMovies}
@@ -16,7 +26,7 @@ const MoviesPage = ({ savedMovies, onSaveMovie, onDeleteMovie, searchQuery, filt
         isShortsActive={isShortsActive}
       />
     </>
-    )
-  };
-  
-  export default MoviesPage;
+  );
+};
+
+export default MoviesPage;

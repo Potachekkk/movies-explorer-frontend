@@ -6,7 +6,7 @@
   padding: 0;
   height: 100%;
   background: #202020;
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   color: white;
   font-weight: 400;
   font-style: normal;
@@ -36,7 +36,7 @@
   font-weight: 400;
   letter-spacing: -0.04em;
   padding-bottom: 23px;
-  border-bottom: 1px solid #DADADA;
+  border-bottom: 1px solid #dadada;
 }
 
 .section {
@@ -57,4 +57,4 @@
     font-size: 18px;
     padding-bottom: 28px;
   }
-} 
+}

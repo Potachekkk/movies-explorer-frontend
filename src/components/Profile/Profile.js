@@ -139,7 +139,7 @@ const Profile = ({ logOut, onUpdate, editSubmitTitle, isLoading }) => {
               <input
                 className={`profile__input profile__input_type_email ${
                   isDisabled || isLoading ? "profile__input_disabled" : ""
-                } ${errors.name ? "profile__input_type_error" : ""}`}
+                } ${errors.email ? "profile__input_type_error" : ""}`}
                 onChange={handleChange}
                 pattern="^\S+@\S+\.\S+$"
                 required

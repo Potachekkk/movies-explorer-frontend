@@ -54,7 +54,7 @@ const App = () => {
     }
   }, [loggedIn]);
 
-  function handleRegistration({ name, email, password }) {
+  const handleRegister = ({ name, email, password }) => {
     setIsLoading(true);
     api
       .register(name, email, password)
@@ -75,7 +75,7 @@ const App = () => {
       });
   }
 
-  function handleLogin({ email, password }) {
+  const handleLogin = ({ email, password }) => {
     setIsLoading(true);
     api
       .authorize(email, password)
@@ -92,23 +92,23 @@ const App = () => {
         setInfoImg(FailIcon);
         setIsInfoPopupOpen(true);
         navigate("/signin", { replace: true });
-        console.log(`Ошибка при входе в систему`);
       })
       .finally(() => {
         setIsLoading(false);
       });
   }
 
-  function handleUnauthorized(err) {
+  const handleUnauthorized = (err) => {
     if (err === "Ошибка: 401") {
       handleLogout();
     }
   }
+  
   function checkToken() {
-    const currentToken = localStorage.getItem("token");
-    if (currentToken) {
+    const jwt = localStorage.getItem("token");
+    if (jwt) {
       api
-        .getContent(currentToken)
+        .getContent(jwt)
         .then((res) => {
           if (res) {
             setLoggedIn(true);
@@ -121,14 +121,14 @@ const App = () => {
     }
   }
 
-  function handleUpdateUser(userData) {
-    const currentToken = localStorage.getItem("token");
+  const handleUpdateUser = (userData) => {
+    const jwt = localStorage.getItem("token");
     setIsLoading(true);
     setEditSubmitTitle("Сохраняем...");
     const name = userData.name;
     const email = userData.email;
     api
-      .editUserInfo(name, email, currentToken)
+      .editUserInfo(name, email, jwt)
       .then((res) => {
         setCurrentUser(res);
         setInfoTitle(REQUEST_TEXTS.USER_INFO_SUCCESS_MESSAGE);
@@ -147,10 +147,10 @@ const App = () => {
       });
   }
 
-  function saveMovie(movieCard) {
-    const currentToken = localStorage.getItem("token");
+  const saveMovie = (movieCard) => {
+    const jwt = localStorage.getItem("token");
     api
-      .saveMoviesCard(movieCard, currentToken)
+      .saveMoviesCard(movieCard, jwt)
       .then((savedCard) => {
         setSavedMovies([savedCard, ...savedMovies]);
 
@@ -161,10 +161,10 @@ const App = () => {
       });
   }
 
-  function deleteMovie(movieCard) {
-    const currentToken = localStorage.getItem("token");
+  const deleteMovie = (movieCard) => {
+    const jwt = localStorage.getItem("token");
     api
-      .deleteMoviesCard(movieCard._id, currentToken)
+      .deleteMoviesCard(movieCard._id, jwt)
       .then(() => {
         setSavedMovies((state) => state.filter((card) => card !== movieCard));
 
@@ -175,7 +175,7 @@ const App = () => {
       });
   }
 
-  function handleLogout() {
+  const handleLogout = () => {
     setLoggedIn(false);
     localStorage.removeItem("movies");
     localStorage.removeItem("movieSearch");
@@ -185,17 +185,17 @@ const App = () => {
     navigate("/", { replace: true });
   }
 
-  function closeAllPopups() {
+  const closeAllPopups = () => {
     setIsInfoPopupOpen(false);
   }
 
-  function handleEscClose(e) {
+  const handleEscClose = (e) => {
     if (e.key === "Escape") {
       closeAllPopups();
     }
   }
 
-  function handleOverlay(e) {
+  const handleOverlay = (e) => {
     if (!e.target.closest(".popup-container")) {
       closeAllPopups();
     }
@@ -252,7 +252,7 @@ const App = () => {
                 <Logged
                   element={Register}
                   loggedIn={loggedIn}
-                  onRegister={handleRegistration}
+                  onRegister={handleRegister}
                 />
               }
             />

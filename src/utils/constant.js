@@ -19,7 +19,7 @@ const CARDS_MORE_MOBILE = 2;
 
 const REQUEST_TEXTS = {
   REG_SUCCESS_MESSAGE: "Вы успешно зарегистрировались!",
-  REG_UNSUCCESS_MESSAGE: "Не получилось зарегистрироваться! Попробуйте ещё раз",
+  REG_UNSUCCESS_MESSAGE: "Что-то пошло не так! Попробуйте еще раз.",
   LOGIN_UNSUCCESS_MESSAGE: "Не получилось войти! Попробуйте ещё раз.",
   AUTH_UNSUCCESS_MESSAGE: "Необходима авторизация!",
   USER_INFO_SUCCESS_MESSAGE: "Данные успешно обновлены!",

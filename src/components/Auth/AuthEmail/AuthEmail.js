@@ -8,6 +8,7 @@ const AuthEmail = ({ ...validationParams }) => {
       type="email"
       name="email"
       placeholder="Введите почту"
+      pattern="^\S+@\S+\.\S+$"
       required
       {...validationParams}
     />

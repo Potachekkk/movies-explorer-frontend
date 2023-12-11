@@ -119,7 +119,7 @@ const Profile = ({ logOut, onUpdate, editSubmitTitle, isLoading }) => {
                 name="name"
                 type="text"
                 placeholder="Имя"
-                value={`${enteredValues.name ? enteredValues.name : name}`}
+                value={enteredValues.name || ''}
                 minLength="2"
                 maxLength="30"
               />
@@ -147,7 +147,7 @@ const Profile = ({ logOut, onUpdate, editSubmitTitle, isLoading }) => {
                 name="email"
                 type="email"
                 placeholder="E-mail"
-                value={`${enteredValues.email ? enteredValues.email : email}`}
+                value={enteredValues.email || ''}
                 minLength="2"
                 maxLength="30"
               />

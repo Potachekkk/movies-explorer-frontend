@@ -1,4 +1,4 @@
-import { BASE_URL } from "./constant";
+import { MAIN_BASE_URL } from "./constant";
 import { CARDS_IMAGE_BASE_URL } from "./constant";
 
 const checkResponse = (res) => {
@@ -6,7 +6,7 @@ const checkResponse = (res) => {
 };
 
 export const register = (name, email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
+  return fetch(`${MAIN_BASE_URL}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,7 +16,7 @@ export const register = (name, email, password) => {
 };
 
 export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return fetch(`${MAIN_BASE_URL}/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -27,7 +27,7 @@ export const authorize = (email, password) => {
 };
 
 export const getContent = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${MAIN_BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export const getContent = (token) => {
 };
 
 export const getUserInfo = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${MAIN_BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ export const getUserInfo = (token) => {
 };
 
 export const editUserInfo = (userName, userEmail, token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${MAIN_BASE_URL}/users/me`, {
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ export const editUserInfo = (userName, userEmail, token) => {
 };
 
 export const getSavedMovies = (token) => {
-  return fetch(`${BASE_URL}/movies`, {
+  return fetch(`${MAIN_BASE_URL}/movies`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -72,7 +72,7 @@ export const getSavedMovies = (token) => {
 };
 
 export const saveMoviesCard = (card, token) => {
-  return fetch(`${BASE_URL}/movies`, {
+  return fetch(`${MAIN_BASE_URL}/movies`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -95,7 +95,7 @@ export const saveMoviesCard = (card, token) => {
 };
 
 export const deleteMoviesCard = (cardId, token) => {
-  return fetch(`${BASE_URL}/movies/${cardId}`, {
+  return fetch(`${MAIN_BASE_URL}/movies/${cardId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,

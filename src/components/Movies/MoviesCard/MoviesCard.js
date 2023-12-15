@@ -1,44 +1,86 @@
-import React from 'react';
-import './MoviesCard.css';
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import img from '../../../images/germany-film.svg'
+import React from "react";
+import "./MoviesCard.css";
+import { CARDS_IMAGE_BASE_URL } from "../../../utils/constant";
 
-const MoviesCard = ({title, duration, trailerLink}) => {
-  const location = useLocation().pathname
-  const [isSavedMovie, setSavedMovie] = useState(false)
-  const saveButton = (
-    `movies-card__save-button  ${isSavedMovie ? "movies-card__save-button_active": ""}`
-  );
+const MoviesCard = ({
+  card,
+  savedCard,
+  onSaveMovie,
+  onDeleteMovie,
+  isSavedFilms,
+  savedMovies,
+}) => {
+  const cardSaveButtonClassName = `movies-card__save-button ${
+    savedCard ? "movies-card__save-button_active" : ""
+  }`;
 
-  function handleSaveClick() {
-    setSavedMovie(!isSavedMovie);
-}
+  function handleCardClick() {
+    if (savedCard) {
+      onDeleteMovie(
+        savedMovies.filter((movie) => movie.movieId === card.id)[0],
+      );
+    } else {
+      onSaveMovie(card);
+    }
+  }
+
+  function handleCardDelete() {
+    onDeleteMovie(card);
+  }
+
+  function convertDuration(duration) {
+    const hours = Math.floor(duration / 60);
+    const minutes = duration % 60;
+    return `${hours}ч ${minutes}м`;
+  }
+
   return (
-    <li className='movies-card'>
-      <div className='movies-card__img-container'>
-        <div className='movies-card__button-container'>
-          {location === '/movies' ? (
-            <button type='button' className={saveButton} onClick={handleSaveClick}>Сохранить</button>
-          ) : (
-            <button type='button' className='movies-card__delete-button'></button>
-          )}
-        </div>
-        <a 
-          href={trailerLink}
-          rel='noreferrer'
-          target='_blank'
-          className='movies-card__link'>
-            <img className='movies-card__img' src={img} alt={title}/>
+    <li className="movies-card">
+      <article className="movies-card__main" id={card._id}>
+        <div className="movies-card__img-container">
+          <div className="movies-card__button-container">
+            {isSavedFilms ? (
+              <button
+                type="button"
+                className="movies-card__delete-button"
+                onClick={handleCardDelete}
+              ></button>
+            ) : (
+              <button
+                onClick={handleCardClick}
+                type="button"
+                className={cardSaveButtonClassName}
+              >
+                Сохранить
+              </button>
+            )}
+          </div>
+          <a
+            href={card.trailerLink}
+            rel="noreferrer"
+            target="_blank"
+            className="movies-card__link"
+          >
+            <img
+              className="movies-card__img"
+              src={
+                isSavedFilms
+                  ? card.image
+                  : `${CARDS_IMAGE_BASE_URL}/${card.image.url}`
+              }
+              alt={card.nameRU}
+            />
           </a>
         </div>
-        <div className='movies-card__container'>
-          <div className='movies-card__title-container'>
-            <h3 className='movies-card__title'>{title}</h3>
-            <p className='movies-card__duration movies-card__duration_type-box'>{duration}</p>
+        <div className="movies-card__container">
+          <div className="movies-card__title-container">
+            <h3 className="movies-card__title">{card.nameRU}</h3>
+            <p className="movies-card__duration movies-card__duration_type-box">
+              {convertDuration(card.duration)}
+            </p>
           </div>
-        
         </div>
+      </article>
     </li>
   );
 };

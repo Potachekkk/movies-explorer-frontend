@@ -1,14 +1,15 @@
-import React from 'react';
-import AuthMain from '../AuthMain/AuthMain';
+import React from "react";
+import AuthMain from "../AuthMain/AuthMain";
 
-const AuthPassword = () => {
+const AuthPassword = ({ ...validationParams }) => {
   return (
     <AuthMain
-      labelText='Пароль'
-      type='password'
-      name='password'
-      placeholder='Введите пароль'
+      labelText="Пароль"
+      type="password"
+      name="password"
+      placeholder="Введите пароль"
       required
+      {...validationParams}
     />
   );
 };
